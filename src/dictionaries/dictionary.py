@@ -57,7 +57,7 @@ class ZIMDict:
         return soup
 
     def lookup(self, query: str, parser: Parser) -> DictEntry | None:
-        query = strip_punct(query)
+        query = strip_punct(query).strip()
         return parser.lookup(query, self)
 
 
