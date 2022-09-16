@@ -10,7 +10,7 @@ from anki.notes import Note
 from aqt import qtmajor
 from aqt.main import AnkiQt
 from aqt.operations import QueryOp
-from aqt.qt import QDialog, QPixmap, QWidget, qconnect
+from aqt.qt import QDialog, QIcon, QWidget, qconnect
 from aqt.utils import showWarning
 
 from . import consts
@@ -49,9 +49,8 @@ class WiktionaryFetcherDialog(QDialog):
             self.form.translationFieldComboBox,
         ]
         self.setWindowTitle(consts.ADDON_NAME)
-        pixmap = QPixmap(os.path.join(consts.ICONS_DIR, "logo.svg"))
-        pixmap = pixmap.scaled(204, 204)
-        self.form.icon.setPixmap(pixmap)
+        icon = QIcon(os.path.join(consts.ICONS_DIR, "logo.svg"))
+        self.form.icon.setPixmap(icon.pixmap(314, 314))
         self.form.fileComboBox.addItems([file.name for file in get_files()])
         self.form.parserComboBox.addItems([parser.name for parser in PARSER_CLASSES])
         qconnect(self.form.addButton.clicked, self.on_add)
