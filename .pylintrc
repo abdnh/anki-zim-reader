@@ -23,7 +23,9 @@ disable=
   fixme,
   useless-return,
   too-few-public-methods,
-
+  ; too-many-locals,
+  ; too-many-branches,
+  ; too-many-statements,
 
 [BASIC]
 good-names =

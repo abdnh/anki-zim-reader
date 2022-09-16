@@ -1,5 +1,5 @@
 import os
-from typing import Any, Callable, List, Optional, Tuple
+from typing import Any, Callable, List, Tuple
 
 try:
     from anki.utils import strip_html
@@ -14,12 +14,13 @@ from aqt.qt import QDialog, QPixmap, QWidget, qconnect
 from aqt.utils import showWarning
 
 from . import consts
-from .dictionaries import DictEntry, DictException, Dictionary, Parser, get_dictionaries
+from .dictionaries import PARSER_CLASSES, DictEntry, DictException, get_files
+from .dictionaries.dictionary import ZIMDict
 
-if qtmajor > 5:
-    from .forms.form_qt6 import Ui_Dialog
+if qtmajor <= 5:
+    from .forms.form_qt5 import Ui_Dialog
 else:
-    from .forms.form_qt5 import Ui_Dialog  # type: ignore
+    from .forms.form_qt6 import Ui_Dialog  # type: ignore
 
 
 PROGRESS_LABEL = "Updated {count} out of {total} note(s)"
@@ -47,32 +48,14 @@ class WiktionaryFetcherDialog(QDialog):
             self.form.inflectionFieldComboBox,
             self.form.translationFieldComboBox,
         ]
-        self.dicts = get_dictionaries()
         self.setWindowTitle(consts.ADDON_NAME)
-        self.form.icon.setPixmap(
-            QPixmap(os.path.join(consts.ICONS_DIR, "enwiktionary-1.5x.png"))
-        )
-        self.form.providerComboBox.addItems(
-            [dict_tuple[0].name for dict_tuple in self.dicts]
-        )
-        self.on_provider_changed(0)
-        qconnect(
-            self.form.providerComboBox.currentIndexChanged, self.on_provider_changed
-        )
-
-        self.dictionary: Optional[Dictionary] = None
-        self.parser: Optional[Parser] = None
+        pixmap = QPixmap(os.path.join(consts.ICONS_DIR, "logo.svg"))
+        pixmap = pixmap.scaled(204, 204)
+        self.form.icon.setPixmap(pixmap)
+        self.form.fileComboBox.addItems([file.name for file in get_files()])
+        self.form.parserComboBox.addItems([parser.name for parser in PARSER_CLASSES])
         qconnect(self.form.addButton.clicked, self.on_add)
         qconnect(self.finished, self.on_finished)
-
-    def on_provider_changed(self, index: int) -> None:
-        self.form.dictionaryComboBox.clear()
-        dict_tuple = self.dicts[self.form.providerComboBox.currentIndex()]
-        dictionary_names = [path.name for path in dict_tuple[1]]
-        self.form.dictionaryComboBox.addItems(dictionary_names)
-        parser_names = [parser.name for parser in dict_tuple[0].parsers]
-        self.form.parserComboBox.clear()
-        self.form.parserComboBox.addItems(parser_names)
 
     def exec(self) -> int:
         if self._fill_fields():
@@ -115,17 +98,11 @@ class WiktionaryFetcherDialog(QDialog):
     )
 
     def set_last_used_settings(self) -> None:
-        source = self.config["source_field"].lower()
-        for i in range(self.form.providerComboBox.count()):
-            text = self.form.providerComboBox.itemText(i)
-            if text.lower() == source:
-                self.form.providerComboBox.setCurrentIndex(i)
-                break
-        dictionary = self.config["dictionary_field"].lower()
-        for i in range(self.form.dictionaryComboBox.count()):
-            text = self.form.dictionaryComboBox.itemText(i)
-            if text.lower() == dictionary:
-                self.form.dictionaryComboBox.setCurrentIndex(i)
+        file = self.config["file_field"].lower()
+        for i in range(self.form.fileComboBox.count()):
+            text = self.form.fileComboBox.itemText(i)
+            if text.lower() == file:
+                self.form.fileComboBox.setCurrentIndex(i)
                 break
         parser = self.config["parser_field"].lower()
         for i in range(self.form.parserComboBox.count()):
@@ -143,8 +120,7 @@ class WiktionaryFetcherDialog(QDialog):
                     break
 
     def save_settings(self) -> None:
-        self.config["source_field"] = self.form.providerComboBox.currentText()
-        self.config["dictionary_field"] = self.form.dictionaryComboBox.currentText()
+        self.config["file_field"] = self.form.fileComboBox.currentText()
         self.config["parser_field"] = self.form.parserComboBox.currentText()
         for i, field_opt in enumerate(self.CONFIG_MODEL_FIELDS):
             self.config[field_opt] = self.combos[i].currentText()
@@ -164,17 +140,16 @@ class WiktionaryFetcherDialog(QDialog):
         if self.form.wordFieldComboBox.currentIndex() == 0:
             showWarning("No word field selected.", parent=self, title=consts.ADDON_NAME)
             return
-        if self.form.dictionaryComboBox.currentIndex() == -1:
+        if self.form.fileComboBox.currentIndex() == -1:
             showWarning(
-                "No dictionary is available. Please use <b>Tools > Wiktionary > Import a dictionary</b>.",
+                f"No dictionary is available. Please use <b>Tools > {consts.ADDON_NAME} > Import a file</b>.",
                 textFormat="rich",
             )
             return
-        dict_tuple = self.dicts[self.form.providerComboBox.currentIndex()]
-        dictionary_class = dict_tuple[0]
-        dictionary_path = dict_tuple[1][self.form.dictionaryComboBox.currentIndex()]
-        self.dictionary = dictionary_class(dictionary_path)
-        self.parser = self.dictionary.parsers[self.form.parserComboBox.currentIndex()]()
+        self.dictionary = ZIMDict(
+            consts.USER_FILES / self.form.fileComboBox.currentText()
+        )
+        self.parser = PARSER_CLASSES[self.form.parserComboBox.currentIndex()]()
         word_field = self.form.wordFieldComboBox.currentText()
         definition_field_i = self.form.definitionFieldComboBox.currentIndex()
         example_field_i = self.form.exampleFieldComboBox.currentIndex()

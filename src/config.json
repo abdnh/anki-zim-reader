@@ -1,8 +1,7 @@
 {
     "editor_shortcut": "Ctrl+S",
     "browser_shortcut": "Ctrl+W",
-    "source_field": "",
-    "dictionary_field": "",
+    "file_field": "",
     "parser_field": "",
     "word_field": "",
     "definition_field": "",

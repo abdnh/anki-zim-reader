@@ -1,6 +1,5 @@
 {
-    "name": "Wiktionary",
-    "package": "wiktionary",
-    "homepage": "https://github.com/abdnh/anki-wiktionary",
-    "ankiweb_id": "2087444887"
+    "name": "ZIM Reader",
+    "package": "zim_reader",
+    "homepage": "https://github.com/abdnh/anki-zim-reader"
 }

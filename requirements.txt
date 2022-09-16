@@ -1,10 +1,11 @@
 anki==2.1.45
 aqt==2.1.45
-PyQt5==5.15.2
+PyQt5==PyQt5
+PyQt5-stubs==5.15.6.0
 PyQt6==6.3.1
-mypy==0.961
+mypy==0.971
 black==22.6.0
-pylint==2.14.4
+pylint==2.15.2
 isort==5.10.1
 ankibuild
 git+https://github.com/abdnh/ankibuild@5092188f6b7c73e7bab2c7f64e7008a7e24466f6#egg=ankibuild[qt5,qt6]

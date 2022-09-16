@@ -1,20 +1,17 @@
+from __future__ import annotations
+
 from pathlib import Path
-from typing import List, Tuple, Type
+from typing import Type
 
 from ..consts import USER_FILES
-from .dictionary import DictEntry, DictException, Dictionary
-from .kaikki import KaikkiDict
+from .dictionary import DictEntry, DictException, ZIMDict
+from .greek import GreekParser
 from .parser import Parser
-from .zim import ZIMDict
+from .spanish import SpanishParser
 
-dictionary_classes: List[Type[Dictionary]] = [KaikkiDict, ZIMDict]
+PARSER_CLASSES: list[Type[Parser]] = [GreekParser, SpanishParser]
 
 
-def get_dictionaries() -> List[Tuple[Type[Dictionary], List[Path]]]:
-    dict_tuples: List[Tuple[Type[Dictionary], List[Path]]] = []
-    for dict_class in dictionary_classes:
-        provider_path = USER_FILES / dict_class.name
-        provider_path.mkdir(exist_ok=True)
-        dictionary_paths = [path for path in provider_path.iterdir() if path.is_dir()]
-        dict_tuples.append((dict_class, dictionary_paths))
-    return dict_tuples
+def get_files() -> list[Path]:
+    """Get a list of folder paths where imported ZIM files are stored"""
+    return list(p for p in USER_FILES.iterdir() if p.is_dir())

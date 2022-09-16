@@ -1,16 +1,10 @@
-import shutil
 import sys
 from typing import List
 
-from anki.collection import Collection
 from aqt import mw
 from aqt.browser.browser import Browser
 from aqt.editor import Editor
-from aqt.gui_hooks import (
-    browser_menus_did_init,
-    collection_did_load,
-    editor_did_init_buttons,
-)
+from aqt.gui_hooks import browser_menus_did_init, editor_did_init_buttons
 from aqt.operations import CollectionOp
 from aqt.qt import *
 from aqt.utils import showText, showWarning, tooltip
@@ -57,7 +51,7 @@ def on_browser_action_triggered(browser: Browser) -> None:
 def on_browser_menus_did_init(browser: Browser) -> None:
     config = mw.addonManager.getConfig(__name__)
     shortcut = config["browser_shortcut"]
-    action = QAction("Bulk-define from Wiktionary", browser)
+    action = QAction("Bulk-define from ZIM file", browser)
     action.setShortcut(shortcut)
     qconnect(action.triggered, lambda: on_browser_action_triggered(browser))
     browser.form.menuEdit.addSeparator()
@@ -80,8 +74,8 @@ def on_editor_did_init_buttons(buttons: List[str], editor: Editor) -> None:
     config = mw.addonManager.getConfig(__name__)
     shortcut = config["editor_shortcut"]
     button = editor.addButton(
-        icon=os.path.join(consts.ICONS_DIR, "en.ico"),
-        cmd="wiktionary",
+        icon=os.path.join(consts.ICONS_DIR, "logo.svg"),
+        cmd="zim",
         tip=f"{consts.ADDON_NAME} ({shortcut})" if shortcut else consts.ADDON_NAME,
         func=on_editor_button_clicked,
         keys=shortcut,
@@ -99,39 +93,15 @@ def on_import_dictionary() -> None:
         )
 
 
-def add_wiktionary_menu() -> None:
+def add_menu() -> None:
     menu = QMenu(consts.ADDON_NAME, mw)
     action = QAction(menu)
-    action.setText("Import a dictionary")
+    action.setText("Import a file")
     qconnect(action.triggered, on_import_dictionary)
     menu.addAction(action)
     mw.form.menuTools.addMenu(menu)
 
 
-def run_migrations(col: Collection) -> None:
-    """
-    Move Kaikki dictionaries saved at the root of user_files by a previous version of the add-on to a subfolder named Kaikki
-    """
-    profile_conf = mw.pm.meta.get(PACKAGE_NAME, {})
-    if not profile_conf.get("version", None):
-        kaikki_dicts = [path for path in consts.USER_FILES.iterdir() if path.is_dir()]
-        kaikki_dir = consts.USER_FILES / "Kaikki"
-        try:
-            kaikki_dir.mkdir()
-        except FileExistsError:
-            showWarning(
-                "The new version of Wiktionary reserves the dictionary name 'Kaikki' to store Kaikki-specific dictionaries. Please rename your existing Kaikki folder to another name and restart Anki",
-                mw,
-                title=consts.ADDON_NAME,
-            )
-            return
-        for dict_path in kaikki_dicts:
-            shutil.move(dict_path, kaikki_dir)
-    profile_conf["version"] = consts.VERSION
-    mw.pm.meta[PACKAGE_NAME] = profile_conf
-
-
 browser_menus_did_init.append(on_browser_menus_did_init)
 editor_did_init_buttons.append(on_editor_did_init_buttons)
-add_wiktionary_menu()
-collection_did_load.append(run_migrations)
+add_menu()
