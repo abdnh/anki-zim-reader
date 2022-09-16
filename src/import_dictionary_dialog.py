@@ -4,7 +4,7 @@ from typing import List
 
 from aqt import qtmajor
 from aqt.main import AnkiQt
-from aqt.qt import QDialog, qconnect
+from aqt.qt import QDialog, QIcon, qconnect
 from aqt.utils import getFile, openLink, showWarning, tooltip
 
 from . import consts
@@ -30,6 +30,8 @@ class ImportDictionaryDialog(QDialog):
 
     def setup_ui(self) -> None:
         self.setWindowTitle(f"{consts.ADDON_NAME} - Import a file")
+        icon = QIcon(os.path.join(consts.ICONS_DIR, "logo.svg"))
+        self.setWindowIcon(icon)
         qconnect(
             self.form.chooseFileButton.clicked,
             self.on_choose_file,

@@ -50,6 +50,7 @@ class WiktionaryFetcherDialog(QDialog):
         ]
         self.setWindowTitle(consts.ADDON_NAME)
         icon = QIcon(os.path.join(consts.ICONS_DIR, "logo.svg"))
+        self.setWindowIcon(icon)
         self.form.icon.setPixmap(icon.pixmap(314, 314))
         self.form.fileComboBox.addItems([file.name for file in get_files()])
         self.form.parserComboBox.addItems([parser.name for parser in PARSER_CLASSES])
