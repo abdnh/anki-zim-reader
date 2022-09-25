@@ -13,20 +13,20 @@ from aqt.operations import QueryOp
 from aqt.qt import QDialog, QIcon, QWidget, qconnect
 from aqt.utils import showWarning
 
-from . import consts
-from .dictionaries import PARSER_CLASSES, DictEntry, DictException, get_files
-from .dictionaries.dictionary import ZIMDict
+from .. import consts
+from ..dictionaries import PARSER_CLASSES, DictEntry, DictException, get_files
+from ..dictionaries.dictionary import ZIMDict
 
 if qtmajor <= 5:
-    from .forms.form_qt5 import Ui_Dialog
+    from ..forms.form_qt5 import Ui_Dialog
 else:
-    from .forms.form_qt6 import Ui_Dialog  # type: ignore
+    from ..forms.form_qt6 import Ui_Dialog  # type: ignore
 
 
 PROGRESS_LABEL = "Updated {count} out of {total} note(s)"
 
 
-class WiktionaryFetcherDialog(QDialog):
+class ZIMFetcherDialog(QDialog):
     def __init__(
         self,
         mw: AnkiQt,

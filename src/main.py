@@ -14,8 +14,8 @@ from . import consts
 sys.path.append(str(consts.ADDON_DIR / "vendor"))
 
 # pylint: disable=wrong-import-position
-from .dialog import WiktionaryFetcherDialog
-from .import_dictionary_dialog import ImportDictionaryDialog
+from .gui.dialog import ZIMFetcherDialog
+from .gui.importer import ImportDialog
 
 PACKAGE_NAME = mw.addonManager.addonFromModule(__name__)
 
@@ -36,7 +36,7 @@ def on_bulk_updated_notes(
 
 def on_browser_action_triggered(browser: Browser) -> None:
     notes = [browser.mw.col.get_note(nid) for nid in browser.selected_notes()]
-    dialog = WiktionaryFetcherDialog(browser.mw, browser, notes)
+    dialog = ZIMFetcherDialog(browser.mw, browser, notes)
     if dialog.exec():
         updated_notes = dialog.updated_notes
         errors = dialog.errors
@@ -59,7 +59,7 @@ def on_browser_menus_did_init(browser: Browser) -> None:
 
 
 def on_editor_button_clicked(editor: Editor) -> None:
-    dialog = WiktionaryFetcherDialog(editor.mw, editor.parentWindow, [editor.note])
+    dialog = ZIMFetcherDialog(editor.mw, editor.parentWindow, [editor.note])
     if dialog.exec():
         if dialog.errors:
             showWarning(
@@ -84,7 +84,7 @@ def on_editor_did_init_buttons(buttons: List[str], editor: Editor) -> None:
 
 
 def on_import_dictionary() -> None:
-    dialog = ImportDictionaryDialog(mw)
+    dialog = ImportDialog(mw)
     dialog.exec()
     if dialog.errors:
         showText(
