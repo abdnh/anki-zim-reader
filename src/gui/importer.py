@@ -11,9 +11,9 @@ from .. import consts
 from ..dictionaries import ZIMDict
 
 if qtmajor > 5:
-    from ..forms.import_dictionary_qt6 import Ui_Dialog
+    from ..forms.importer_qt6 import Ui_Dialog
 else:
-    from ..forms.import_dictionary_qt5 import Ui_Dialog  # type: ignore
+    from ..forms.importer_qt5 import Ui_Dialog  # type: ignore
 
 
 class ImportDialog(QDialog):

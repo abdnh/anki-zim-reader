@@ -8,6 +8,7 @@ src/user_files/*/
 ankidata/
 vendor/
 src/meta.json
+src/forms/
 
 TODO.md
 samples/

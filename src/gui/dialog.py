@@ -18,9 +18,9 @@ from ..dictionaries import PARSER_CLASSES, DictEntry, DictException, get_files
 from ..dictionaries.dictionary import ZIMDict
 
 if qtmajor <= 5:
-    from ..forms.form_qt5 import Ui_Dialog
+    from ..forms.main_qt5 import Ui_Dialog
 else:
-    from ..forms.form_qt6 import Ui_Dialog  # type: ignore
+    from ..forms.main_qt6 import Ui_Dialog  # type: ignore
 
 
 PROGRESS_LABEL = "Updated {count} out of {total} note(s)"
