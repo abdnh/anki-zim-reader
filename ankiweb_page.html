@@ -1,18 +1,19 @@
-An add-on to query words using Wiktionary data taken from https://kaikki.org
+<img src="images/ankiweb_logo.png">
+
+This add-on allows you to import <a href="https://en.wikipedia.org/wiki/ZIM_(file_format)">ZIM</a> files and access their data inside Anki. The main focus of the add-on is to support extracting data such word definitions, example sentences, pronunciation, etc. from the Wiktionary ZIM files and add them to notes.
+This is a fork of the <a href="https://ankiweb.net/shared/info/2087444887">Wiktionary</a> add-on. The plan was to add ZIM support to the Wiktionary add-on in addition to the original support for Kaikki files, but the project's complexity grew up quickly and I got some neat ideas to extend the add-on with ZIM-specific additions, so I decided to split it into a new add-on to keep the Wiktionary add-on simple.
+
+<b>Supported dictionaries</b>
+Currently supported dictionaries are the Greek and the Spanish Wiktionary files (Specifically, the "wiktionary (Ελληνικά)" and "wiktionary (español)" dictionaries in <a href="https://wiki.kiwix.org/wiki/Content_in_all_languages">this page</a>). Pull requests to add support for more dictionaries and improve existing ones are very much appreciated. The HTML content of the entries stored in the ZIM file needs to be parsed for that. See <a href="https://github.com/abdnh/anki-zim-reader/blob/master/./src/dictionaries/greek.py">greek.py</a> for an example of how it's done for Greek. If you want to see support for your language, you can open a feature request in the <a href="https://github.com/abdnh/anki-zim-reader/issues">issue tracker</a>.
 
 <b>Usage</b>
-The add-on provides an interface to fill notes with defintions, example sentences, etc.
-The interface can either be accessed from a button in the editor, or via the <i>Edit > Bulk-define from Wiktionary</i> menu item in the browser for bulk operations on selected notes. You can also configure shortcuts from <i>Tools > Add-ons</i>.
-<img src="https://raw.githubusercontent.com/abdnh/anki-wiktionary/master/images/dialog.png" width="600">
-
-You have to download the dictionary data you want for the add-on to work. For that, find your target language in https://kaikki.org/dictionary/ and download the JSON file containing all data listed at the bottom of the language page (which has a name like <b>kaikki.org-dictionary-Russian.json</b>). Then in Anki, go to <i>Tools > Wiktionary -> Import a dictionary</i> to import the dictionary.
-<img src="https://raw.githubusercontent.com/abdnh/anki-wiktionary/master/images/import_dialog.png" width="600">
-
-<b>Support</b>
-Please report issues you encounter with the add-on in the support page, which you can access by clicking on the <b>Contact Author</b> button.
+The add-on provides an interface to fill notes with defintions, example sentences, etc. The interface can either be accessed from a button in the editor, or via the <i>Edit &gt; Bulk-define from ZIM file</i> menu item in the browser for bulk operations on selected notes. You can also configure shortcuts from <i>Tools &gt; Add-ons</i>.
+<img src="https://raw.githubusercontent.com/abdnh/anki-zim-reader/master/images/dialog.png" width="600"/>
+To import a new dictionary, go to <i>Tools &gt; ZIM Reader -&gt; Import a file</i>. <a href="https://wiki.kiwix.org/wiki/Content_in_all_languages">This page</a> has a lot of ZIM files available for download.
+<img src="https://raw.githubusercontent.com/abdnh/anki-zim-reader/master/images/import_dialog.png" width="600"/>
 
 <b>Support me</b>
 Consider supporting me on Ko-fi or Patreon if you like my add-ons:
-<a href='https://ko-fi.com/U7U8AE997'><img height='36' src='https://cdn.ko-fi.com/cdn/kofi1.png?v=3' border='0' alt='Buy Me a Coffee at ko-fi.com' /></a> <a href="https://www.patreon.com/abdnh"><img height='36' src="https://i.imgur.com/mZBGpZ1.png"></a>
+<a href="https://ko-fi.com/U7U8AE997"><img alt="Buy Me a Coffee at ko-fi.com" border="0" height="36" src="https://cdn.ko-fi.com/cdn/kofi1.png?v=3"/></a> <a href="https://www.patreon.com/abdnh"><img height="36" src="https://i.imgur.com/mZBGpZ1.png"/></a>
 I'm also available for freelance add-on development at Fiverr:
-<a href="https://www.fiverr.com/abd_nh/develop-an-anki-addon"><img height='36' src="https://i.imgur.com/0meG4dk.png"></a>
+<a href="https://www.fiverr.com/abd_nh/develop-an-anki-addon"><img height="36" src="https://i.imgur.com/0meG4dk.png"/></a>

@@ -1,6 +1,6 @@
 <img src="./src/icons/logo.svg" width="250">
 
-_Work in progress_
+**Work in progress**
 
 Anki add-on that allows you to import [ZIM](<https://en.wikipedia.org/wiki/ZIM_(file_format)>) files
 and access their data inside Anki. The main focus of the add-on is to support extracting data such word definitions, example sentences, pronunciation, etc. from the Wiktionary ZIM files and add them to notes.
@@ -13,6 +13,7 @@ to keep the Wiktionary add-on simple.
 
 Currently supported dictionaries are the Greek and the Spanish Wiktionary files.[^1]
 Pull requests to add support for more dictionaries and improve existing ones are very much appreciated. The HTML content of the entries stored in the ZIM file needs to be parsed for that. See [greek.py](./src/dictionaries/greek.py) for an example of how it's done for Greek.
+If you want to see support for your language, you can open a feature request in the [issue tracker](https://github.com/abdnh/anki-zim-reader/issues).
 
 ## Usage
 
