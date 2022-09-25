@@ -1,5 +1,5 @@
-anki==2.1.45
-aqt==2.1.45
+anki==2.1.46
+aqt==2.1.46
 PyQt5==PyQt5
 PyQt5-stubs==5.15.6.0
 PyQt6==6.3.1
