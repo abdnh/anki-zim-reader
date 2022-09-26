@@ -41,13 +41,21 @@ class SettingsDialog(QDialog):
         self.form.popupShortcut.setKeySequence(
             QKeySequence(self.config["popup_shortcut"])
         )
+        self.form.popupWidthSpinBox.setValue(int(self.config["popup_width"]))
+        self.form.popupHeightSpinBox.setValue(int(self.config["popup_height"]))
+
         # TODO: make other shortcuts configurable from here too
 
     def on_save(self) -> None:
         popup_dictionary = self.form.popupDictionaryComboBox.currentText()
         popup_shortcut = self.form.popupShortcut.keySequence().toString()
+        popup_width = self.form.popupWidthSpinBox.value()
+        popup_height = self.form.popupHeightSpinBox.value()
         self.config["popup_dictionary"] = popup_dictionary
         self.config["popup_shortcut"] = popup_shortcut
+        self.config["popup_width"] = popup_width
+        self.config["popup_height"] = popup_height
+
         self.mw.addonManager.writeConfig(__name__, self.config)
         popup.restart_server()
         popup.reset_shortcut()

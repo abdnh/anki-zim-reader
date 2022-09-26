@@ -17,8 +17,6 @@ function showTooltipForSelection() {
         trigger: '',
         animation: "scale-extreme",
         appendTo: document.body,
-        // TODO: maybe make configurable and make sure to update the value set on the iframe to match
-        maxWidth: 600,
         onHide() {
             span.insertAdjacentHTML('afterend', span.innerHTML);
             span.remove();

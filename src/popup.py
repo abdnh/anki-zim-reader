@@ -52,11 +52,15 @@ def handle_popup_request(
         return handled
     subcmd, word = parts[1:3]
     if subcmd == "popup":
-        # TODO: make width and height configurable
-        contents = f"<iframe src='{zim_server.url}{word}' width='600' height='500' style='display: block;'></iframe>"
+        config = mw.addonManager.getConfig(__name__)
+        width = config["popup_width"]
+        height = config["popup_height"]
+        contents = f"<iframe src='{zim_server.url}{word}' width='{width}' height='{height}' style='display: block;'></iframe>"
         contents = json.dumps(contents)
         web = get_webview_for_context(context)
-        web.eval(f"globalThis.tippyInstance.setContent({contents});")
+        web.eval(
+            f"globalThis.tippyInstance.setContent({contents}); globalThis.tippyInstance.setProps({{maxWidth: {width}}});"
+        )
     return (True, None)
 
 
