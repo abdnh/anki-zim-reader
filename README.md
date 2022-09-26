@@ -23,9 +23,12 @@ item in the browser for bulk operations on selected notes. You can also configur
 
 <img src="./images/dialog.png" width="600">
 
-To import a new dictionary, go to _Tools > ZIM Reader -> Import a file_. [This page](https://wiki.kiwix.org/wiki/Content_in_all_languages) has a lot of ZIM files available for download.
+To import a new dictionary, go to _Tools > ZIM Reader > Import a file_. [This page](https://wiki.kiwix.org/wiki/Content_in_all_languages) has a lot of ZIM files available for download.
 
 <img src="./images/import_dialog.png" width="600">
+
+There is also a feature to look up words in the reviewing screen in any imported ZIM file. If you select any word and press "Alt+Shift+S", a pop-up should be shown with the page of the selected word if found.
+You can configure the ZIM file used for the pop-up feature and the shortcut from _Tools > _ ZIM Reader > Settings_.
 
 ## Download
 
@@ -35,7 +38,7 @@ TODO: publish to AnkiWeb
 
 Currently planned features are
 
-- [ ] A pop-up feature that can be used to look up any word on the reviewer in imported ZIM files and view them in a nice format like in [Kiwix](https://www.kiwix.org/).
+- [x] A pop-up feature that can be used to look up any word on the reviewer in imported ZIM files and view them in a nice format like in [Kiwix](https://www.kiwix.org/).
 - [ ] An API to allow other add-ons to make use of the add-on's features. Specifically, I plan to extend the [Create subs2srs cards with mpv video player](https://ankiweb.net/shared/info/1213145732) with a pop-up dictionary inside mpv with the support of [intersubs](https://github.com/abdnh/intersubs).
 - [ ] Change shortcuts to avoid conflicts with Wiktionary
 - [ ] Update ankiweb_page.html and publish add-on

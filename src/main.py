@@ -13,9 +13,12 @@ from . import consts
 
 sys.path.append(str(consts.ADDON_DIR / "vendor"))
 
+
 # pylint: disable=wrong-import-position
-from .gui.dialog import ZIMFetcherDialog
+from . import popup
 from .gui.importer import ImportDialog
+from .gui.main import ZIMFetcherDialog
+from .gui.settings import SettingsDialog
 
 PACKAGE_NAME = mw.addonManager.addonFromModule(__name__)
 
@@ -93,15 +96,27 @@ def on_import_dictionary() -> None:
         )
 
 
+def on_settings() -> None:
+    dialog = SettingsDialog(mw)
+    dialog.exec()
+
+
 def add_menu() -> None:
     menu = QMenu(consts.ADDON_NAME, mw)
     action = QAction(menu)
     action.setText("Import a file")
     qconnect(action.triggered, on_import_dictionary)
     menu.addAction(action)
+
+    action = QAction(menu)
+    action.setText("Settings")
+    qconnect(action.triggered, on_settings)
+    menu.addAction(action)
+
     mw.form.menuTools.addMenu(menu)
 
 
 browser_menus_did_init.append(on_browser_menus_did_init)
 editor_did_init_buttons.append(on_editor_did_init_buttons)
 add_menu()
+popup.init()

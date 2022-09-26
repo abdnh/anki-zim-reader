@@ -1,6 +1,8 @@
 {
     "editor_shortcut": "Ctrl+S",
     "browser_shortcut": "Ctrl+W",
+    "popup_shortcut": "Alt+Shift+S",
+    "popup_dictionary": "",
     "file_field": "",
     "parser_field": "",
     "word_field": "",

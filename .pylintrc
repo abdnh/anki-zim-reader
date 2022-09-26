@@ -23,6 +23,8 @@ disable=
   fixme,
   useless-return,
   too-few-public-methods,
+  invalid-name,
+  global-statement,
   ; too-many-locals,
   ; too-many-branches,
   ; too-many-statements,

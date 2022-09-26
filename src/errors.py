@@ -1,0 +1,2 @@
+class ZIMReaderException(Exception):
+    pass

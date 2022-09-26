@@ -11,12 +11,10 @@ from bs4 import BeautifulSoup
 from bs4.element import NavigableString, PageElement, Tag
 from zimply_core.zim_core import ZIMClient
 
+from ..errors import ZIMReaderException
+
 if TYPE_CHECKING:
     from .parser import Parser
-
-
-class DictException(Exception):
-    pass
 
 
 @dataclass
@@ -34,7 +32,7 @@ class ZIMDict:
     def __init__(self, path: Path):
         zim_path = next(path.glob("*.zim"), None)
         if not zim_path:
-            raise DictException(f"No zim file was found in {str(path)}")
+            raise ZIMReaderException(f"No zim file was found in {str(path)}")
         self.zim_client = ZIMClient(
             zim_path, encoding="utf-8", auto_delete=True, enable_search=False
         )

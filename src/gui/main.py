@@ -14,8 +14,9 @@ from aqt.qt import QDialog, QIcon, QWidget, qconnect
 from aqt.utils import showWarning
 
 from .. import consts
-from ..dictionaries import PARSER_CLASSES, DictEntry, DictException, get_files
+from ..dictionaries import PARSER_CLASSES, DictEntry, get_files
 from ..dictionaries.dictionary import ZIMDict
+from ..errors import ZIMReaderException
 
 if qtmajor <= 5:
     from ..forms.main_qt5 import Ui_Dialog
@@ -228,7 +229,7 @@ class ZIMFetcherDialog(QDialog):
                     contents = field_tuple[1](dict_entry)
                     note[self.field_names[field_tuple[0]]] = contents
                     need_updating = True
-            except DictException as exc:
+            except ZIMReaderException as exc:
                 self.errors.append(str(exc))
             finally:
                 if need_updating:

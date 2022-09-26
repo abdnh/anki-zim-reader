@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import struct
 import threading
 from http import HTTPStatus
 
@@ -9,6 +10,7 @@ from waitress.server import create_server as create_waitress_server
 from zimply_core.zim_core import ZIMClient
 
 from .consts import USER_FILES
+from .errors import ZIMReaderException
 
 
 class ZIMServer(threading.Thread):
@@ -22,13 +24,12 @@ class ZIMServer(threading.Thread):
         self.is_shutdown = False
         zim_path = next((USER_FILES / dictionary).glob("*.zim"), None)
         if not zim_path:
-            raise Exception(f"No ZIM file was found in {str(dictionary)}")
+            raise ZIMReaderException(f"No ZIM file was found in {str(dictionary)}")
         self.client = ZIMClient(
             str(zim_path),
             encoding="utf-8",
             auto_delete=True,
-            # FIXME: enable search after fixing threading issues
-            enable_search=False,
+            enable_search=True,
         )
 
     def run(self) -> None:
@@ -49,14 +50,13 @@ class ZIMServer(threading.Thread):
                 raise
 
     # Copied from mediasrv.py in Anki
-    # TODO: uncomment if actually necessary
-    # def shutdown(self) -> None:
-    #     self.is_shutdown = True
-    #     sockets = list(self.server._map.values())  # type: ignore
-    #     for socket in sockets:
-    #         socket.handle_close()
-    #     # https://github.com/Pylons/webtest/blob/4b8a3ebf984185ff4fefb31b4d0cf82682e1fcf7/webtest/http.py#L93-L104
-    #     self.server.task_dispatcher.shutdown()
+    def shutdown(self) -> None:
+        self.is_shutdown = True
+        sockets = list(self.server._map.values())  # type: ignore
+        for socket in sockets:
+            socket.handle_close()
+        # https://github.com/Pylons/webtest/blob/4b8a3ebf984185ff4fefb31b4d0cf82682e1fcf7/webtest/http.py#L93-L104
+        self.server.task_dispatcher.shutdown()
 
     @property
     def port(self) -> int:
@@ -83,14 +83,18 @@ def create_server(dictionary: str) -> ZIMServer:
     @app.route("/<path:path>")
     def handle_request(path: str) -> Response:
         try:
-            article = zim_server.client.get_article(path)
-        except KeyError:
-            *_, word = path.rsplit("/", maxsplit=1)
-            results = zim_server.client.search(word, 0, -1)
-            if results:
-                article = zim_server.client.get_article(results[0].url)
-            else:
-                article = None
+            try:
+                article = zim_server.client.get_article(path)
+            except KeyError:
+                *_, word = path.rsplit("/", maxsplit=1)
+                results = zim_server.client.search(word, 0, -1)
+                if results:
+                    article = zim_server.client.get_article(results[0].url)
+                else:
+                    article = None
+        except struct.error:
+            # FIXME: swallow random unpacking errors for now until we find a fix for https://github.com/kimbauters/ZIMply/issues/31
+            return flask.make_response("Internal server error", HTTPStatus.NOT_FOUND)
         if article:
             response = flask.make_response(article.data, HTTPStatus.OK)
             response.headers["Content-Type"] = article.mimetype
