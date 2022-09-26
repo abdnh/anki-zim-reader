@@ -79,8 +79,7 @@ files listed at <a href="https://wiki.kiwix.org/wiki/Content_in_all_languages">t
             return
         self.mw.progress.start(label="Starting importing...", parent=self)
         self.mw.progress.set_title(f"{consts.ADDON_NAME} - Importing a dictionary")
-        output_folder = consts.USER_FILES / name
         self.mw.taskman.run_in_background(
-            lambda: ZIMDict.build_dict(filename, output_folder),
+            lambda: ZIMDict.build_dict(filename, name),
             on_done=on_done,
         )

@@ -147,9 +147,7 @@ class ZIMFetcherDialog(QDialog):
                 textFormat="rich",
             )
             return
-        self.dictionary = ZIMDict(
-            consts.USER_FILES / self.form.fileComboBox.currentText()
-        )
+        self.dictionary = ZIMDict(self.form.fileComboBox.currentText())
         self.parser = PARSER_CLASSES[self.form.parserComboBox.currentIndex()]()
         word_field = self.form.wordFieldComboBox.currentText()
         definition_field_i = self.form.definitionFieldComboBox.currentIndex()

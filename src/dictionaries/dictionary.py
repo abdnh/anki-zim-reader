@@ -11,6 +11,7 @@ from bs4 import BeautifulSoup
 from bs4.element import NavigableString, PageElement, Tag
 from zimply_core.zim_core import ZIMClient
 
+from ..consts import USER_FILES
 from ..errors import ZIMReaderException
 
 if TYPE_CHECKING:
@@ -29,23 +30,32 @@ class DictEntry:
 
 
 class ZIMDict:
-    def __init__(self, path: Path):
-        zim_path = next(path.glob("*.zim"), None)
+    def __init__(self, name: str):
+        folder_path = USER_FILES / name
+        zim_path = next(folder_path.glob("*.zim"), None)
         if not zim_path:
-            raise ZIMReaderException(f"No zim file was found in {str(path)}")
+            raise ZIMReaderException(f"No zim file was found in {str(name)}")
         self.zim_client = ZIMClient(
-            zim_path, encoding="utf-8", auto_delete=True, enable_search=False
+            zim_path,
+            encoding="utf-8",
+            auto_delete=True,
+            # TODO: enable search support
+            enable_search=False,
         )
 
     @classmethod
     def build_dict(
         cls,
         filename: str | Path,
-        output_folder: Path,
+        name: str,
     ) -> None:
-        # just copy input zim file to the output folder
+        # Copy input zim file to the output folder
+        output_folder = USER_FILES / name
         output_folder.mkdir(exist_ok=True)
         shutil.copy(filename, output_folder)
+        # Build search index
+        # FIXME: it's potentially unsafe to enable search support for now as the index is build in a separate thread and we're not keeping track of its progress
+        # ZIMDict(name)
 
     @staticmethod
     @functools.lru_cache
