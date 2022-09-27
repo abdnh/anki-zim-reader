@@ -30,6 +30,7 @@ class SettingsDialog(QDialog):
         self.setWindowIcon(icon)
         self.form.icon.setPixmap(icon.pixmap(314, 314))
         qconnect(self.form.saveButton.clicked, self.on_save)
+        self.form.saveButton.setShortcut(QKeySequence("Ctrl+Return"))
         dictionary_names = [p.name for p in dictionaries.get_files()]
         self.form.popupDictionaryComboBox.addItems(dictionary_names)
         configured_dictionary = self.config["popup_dictionary"]
