@@ -43,9 +43,15 @@ Currently planned features are
 - [ ] Change shortcuts to avoid conflicts with Wiktionary
 - [ ] Update ankiweb_page.html and publish add-on
 
+## License
+
+The add-on is licensed under the GPL license, version 3 or any later version.
+
 ## Credit
 
-The icon is adapted from the [Kiwix logo](https://en.wikipedia.org/wiki/File:Kiwix_logo_v3.svg) (licensed under the [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0/deed.en)) and the Anki logo from the [Papirus icon theme](https://github.com/PapirusDevelopmentTeam/papirus-icon-theme) (licensed under the [GPLv3](https://github.com/PapirusDevelopmentTeam/papirus-icon-theme/blob/master/LICENSE)).
+- The logo is adapted from the [Kiwix logo](https://en.wikipedia.org/wiki/File:Kiwix_logo_v3.svg) (licensed under the [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0/deed.en)) and the Anki logo from the [Papirus icon theme](https://github.com/PapirusDevelopmentTeam/papirus-icon-theme) (licensed under the [GPLv3](https://github.com/PapirusDevelopmentTeam/papirus-icon-theme/blob/master/LICENSE)).
+- The [zimply-core](https://github.com/dylanmccall/zimply-core) library is used to extract data from ZIM files. See [license](https://github.com/dylanmccall/zimply-core/blob/master/LICENSE.txt).
+
 
 ## Support me
 
