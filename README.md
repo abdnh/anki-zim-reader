@@ -45,7 +45,7 @@ Currently planned features are
 
 ## License
 
-The add-on is licensed under the GPL license, version 3 or any later version.
+GPLv3 or later. See [LICENSE](./LICENSE).
 
 ## Credit
 
