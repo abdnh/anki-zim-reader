@@ -7,10 +7,8 @@ from http import HTTPStatus
 import flask
 from flask import Flask, Response
 from waitress.server import create_server as create_waitress_server
-from zimply_core.zim_core import ZIMClient
 
-from .consts import USER_FILES
-from .errors import ZIMReaderException
+from .dictionaries import ZIMDict
 
 
 class ZIMServer(threading.Thread):
@@ -22,15 +20,7 @@ class ZIMServer(threading.Thread):
         super().__init__()
         self.app = app
         self.is_shutdown = False
-        zim_path = next((USER_FILES / dictionary).glob("*.zim"), None)
-        if not zim_path:
-            raise ZIMReaderException(f"No ZIM file was found in {str(dictionary)}")
-        self.client = ZIMClient(
-            str(zim_path),
-            encoding="utf-8",
-            auto_delete=True,
-            enable_search=True,
-        )
+        self.dictionary = ZIMDict(dictionary)
 
     def run(self) -> None:
         try:
@@ -75,7 +65,7 @@ def create_server(dictionary: str) -> ZIMServer:
 
     @app.route("/")
     def index() -> Response:
-        article = zim_server.client.main_page
+        article = zim_server.dictionary.zim_client.main_page
         response = flask.make_response(article.data, HTTPStatus.OK)
         response.headers["Content-Type"] = article.mimetype
         return response
@@ -84,16 +74,18 @@ def create_server(dictionary: str) -> ZIMServer:
     def handle_request(path: str) -> Response:
         try:
             try:
-                article = zim_server.client.get_article(path)
+                article = zim_server.dictionary.zim_client.get_article(path)
             except KeyError:
                 *_, word = path.rsplit("/", maxsplit=1)
-                results = zim_server.client.search(word, 0, -1)
+                results = zim_server.dictionary.zim_client.search(word, 0, -1)
                 if results:
-                    article = zim_server.client.get_article(results[0].url)
+                    article = zim_server.dictionary.zim_client.get_article(
+                        results[0].url
+                    )
                 else:
                     article = None
         except struct.error:
-            # FIXME: swallow random unpacking errors for now until we find a fix for https://github.com/kimbauters/ZIMply/issues/31
+            # FIXME: swallow random unpacking errors for now until issue #3 is fixed
             return flask.make_response("Internal server error", HTTPStatus.NOT_FOUND)
         if article:
             response = flask.make_response(article.data, HTTPStatus.OK)
