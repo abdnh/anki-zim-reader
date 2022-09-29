@@ -15,3 +15,11 @@ class Parser(ABC):
     @abstractmethod
     def lookup(self, query: str, dictionary: ZIMDict) -> DictEntry | None:
         raise NotImplementedError()
+
+    def follow_redirects(self, query: str, dictionary: ZIMDict) -> str:
+        """
+        This can be implemented to get, for example, the non-inflected form of a word in
+        which definitions and other contents exist.
+        Useful for entries where there are only redirects to other entries, e.g. "See go" in the entry of "went".
+        """
+        return query

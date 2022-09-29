@@ -3,6 +3,7 @@ from __future__ import annotations
 import re
 
 import spacy
+from bs4 import BeautifulSoup
 
 from .dictionary import DictEntry, ZIMDict, strip_images
 from .parser import Parser
@@ -76,8 +77,7 @@ class GreekParser(Parser):
         )
     )
 
-    def lookup(self, query: str, dictionary: ZIMDict) -> DictEntry | None:
-        assert isinstance(dictionary, ZIMDict)
+    def _get_soup(self, query: str, dictionary: ZIMDict) -> BeautifulSoup | None:
         forms = [query, query.lower(), query.title(), query.upper(), self._stem(query)]
         soup = None
         for form in forms:
@@ -86,6 +86,33 @@ class GreekParser(Parser):
                 break
             except KeyError:
                 pass
+        return soup
+
+    def follow_redirects(self, query: str, dictionary: ZIMDict) -> str:
+        redirect_word = None
+        soup = self._get_soup(query, dictionary)
+        if not soup:
+            return query
+        greek_el = None
+        for lang_id in self.LANG_IDS:
+            greek_el = soup.select_one(lang_id)
+            if greek_el:
+                break
+        if greek_el:
+            parent_details = greek_el.find_parents("details")[0]
+            for entry in parent_details.select("details"):
+                entry_text = entry.get_text()
+                for (redirect_pattern, _) in self.REDIRECT_PATTERNS:
+                    match = redirect_pattern.search(entry_text)
+                    if match:
+                        redirect_word = match.group(1)
+                        break
+                if redirect_word:
+                    return redirect_word
+        return redirect_word
+
+    def lookup(self, query: str, dictionary: ZIMDict) -> DictEntry | None:
+        soup = self._get_soup(query, dictionary)
         if not soup:
             return None
         pos: list[str] = []

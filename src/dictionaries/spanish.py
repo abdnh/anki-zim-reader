@@ -33,7 +33,6 @@ class SpanishParser(Parser):
     )
 
     def lookup(self, query: str, dictionary: ZIMDict) -> DictEntry | None:
-        assert isinstance(dictionary, ZIMDict)
         try:
             soup = dictionary.get_soup(dictionary.zim_client, query)
         except KeyError:
