@@ -1,12 +1,15 @@
 from __future__ import annotations
 
 import re
+from typing import TYPE_CHECKING
 
-import spacy
 from bs4 import BeautifulSoup
 
 from .dictionary import DictEntry, ZIMDict, strip_images
 from .parser import Parser
+
+if TYPE_CHECKING:
+    from spacy.language import Language
 
 
 class GreekParser(Parser):
@@ -18,7 +21,13 @@ class GreekParser(Parser):
     name = "Greek"
 
     def __init__(self) -> None:
-        self.nlp = spacy.load("el_core_news_sm")
+        self.nlp: Language | None = None
+        try:
+            import spacy
+
+            self.nlp = spacy.load("el_core_news_sm")
+        except:
+            pass
         super().__init__()
 
     def _stem(self, word: str) -> str:
@@ -78,7 +87,9 @@ class GreekParser(Parser):
     )
 
     def _get_soup(self, query: str, dictionary: ZIMDict) -> BeautifulSoup | None:
-        forms = [query, query.lower(), query.title(), query.upper(), self._stem(query)]
+        forms = [query, query.lower(), query.title(), query.upper()]
+        if self.nlp:
+            forms.append(self._stem(query))
         soup = None
         for form in forms:
             try:
