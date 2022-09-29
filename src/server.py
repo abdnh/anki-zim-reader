@@ -84,7 +84,7 @@ def create_server(dictionary: str) -> ZIMServer:
                     )
                 else:
                     article = None
-        except struct.error:
+        except:
             # FIXME: swallow random unpacking errors for now until issue #3 is fixed
             return flask.make_response("Internal server error", HTTPStatus.NOT_FOUND)
         if article:
