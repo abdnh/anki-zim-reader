@@ -36,7 +36,10 @@
      <item row="0" column="0">
       <widget class="QLabel" name="label_6">
        <property name="text">
-        <string>File</string>
+        <string>&amp;File</string>
+       </property>
+       <property name="buddy">
+        <cstring>fileComboBox</cstring>
        </property>
       </widget>
      </item>
@@ -70,56 +73,80 @@
      <item row="1" column="0">
       <widget class="QLabel" name="label_8">
        <property name="text">
-        <string>Parser</string>
+        <string>&amp;Parser</string>
+       </property>
+       <property name="buddy">
+        <cstring>parserComboBox</cstring>
        </property>
       </widget>
      </item>
      <item row="2" column="0">
       <widget class="QLabel" name="label">
        <property name="text">
-        <string>Word</string>
+        <string>&amp;Word</string>
+       </property>
+       <property name="buddy">
+        <cstring>wordFieldComboBox</cstring>
        </property>
       </widget>
      </item>
      <item row="3" column="0">
       <widget class="QLabel" name="label_2">
        <property name="text">
-        <string>Definition</string>
+        <string>&amp;Definition</string>
+       </property>
+       <property name="buddy">
+        <cstring>definitionFieldComboBox</cstring>
        </property>
       </widget>
      </item>
      <item row="4" column="0">
       <widget class="QLabel" name="label_3">
        <property name="text">
-        <string>Example</string>
+        <string>&amp;Example</string>
+       </property>
+       <property name="buddy">
+        <cstring>exampleFieldComboBox</cstring>
        </property>
       </widget>
      </item>
      <item row="5" column="0">
       <widget class="QLabel" name="label_4">
        <property name="text">
-        <string>Gender</string>
+        <string>&amp;Gender</string>
+       </property>
+       <property name="buddy">
+        <cstring>genderFieldComboBox</cstring>
        </property>
       </widget>
      </item>
      <item row="6" column="0">
       <widget class="QLabel" name="label_5">
        <property name="text">
-        <string>Part of Speech</string>
+        <string>Part of &amp;Speech</string>
+       </property>
+       <property name="buddy">
+        <cstring>POSFieldComboBox</cstring>
        </property>
       </widget>
      </item>
      <item row="7" column="0">
       <widget class="QLabel" name="label_9">
        <property name="text">
-        <string>Inflection</string>
+        <string>&amp;Inflection</string>
+       </property>
+       <property name="buddy">
+        <cstring>inflectionFieldComboBox</cstring>
        </property>
       </widget>
      </item>
      <item row="8" column="0">
       <widget class="QLabel" name="label_10">
        <property name="text">
-        <string>Translation</string>
+        <string>&amp;Translation</string>
+       </property>
+       <property name="buddy">
+        <cstring>translationFieldComboBox</cstring>
        </property>
       </widget>
      </item>

@@ -4,7 +4,7 @@ from typing import List
 
 from aqt import qtmajor
 from aqt.main import AnkiQt
-from aqt.qt import QDialog, QIcon, qconnect
+from aqt.qt import QDialog, QIcon, QKeySequence, qconnect
 from aqt.utils import getFile, openLink, showWarning, tooltip
 
 from .. import consts
@@ -37,6 +37,7 @@ class ImportDialog(QDialog):
             self.on_choose_file,
         )
         qconnect(self.form.addButton.clicked, self.on_add)
+        self.form.addButton.setShortcut(QKeySequence("Ctrl+Return"))
         qconnect(
             self.form.description.linkActivated,
             lambda link: openLink(link),  # pylint: disable=unnecessary-lambda

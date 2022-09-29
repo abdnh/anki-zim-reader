@@ -10,7 +10,7 @@ from anki.notes import Note
 from aqt import qtmajor
 from aqt.main import AnkiQt
 from aqt.operations import QueryOp
-from aqt.qt import QDialog, QIcon, QWidget, qconnect
+from aqt.qt import QDialog, QIcon, QKeySequence, QWidget, qconnect
 from aqt.utils import showWarning
 
 from .. import consts
@@ -56,6 +56,7 @@ class ZIMFetcherDialog(QDialog):
         self.form.fileComboBox.addItems([file.name for file in get_files()])
         self.form.parserComboBox.addItems([parser.name for parser in PARSER_CLASSES])
         qconnect(self.form.addButton.clicked, self.on_add)
+        self.form.addButton.setShortcut(QKeySequence("Ctrl+Return"))
         qconnect(self.finished, self.on_finished)
 
     def exec(self) -> int:

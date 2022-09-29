@@ -33,7 +33,10 @@
       <item row="1" column="0" colspan="2">
        <widget class="QLabel" name="label">
         <property name="text">
-         <string>Dictionary</string>
+         <string>&amp;Dictionary</string>
+        </property>
+        <property name="buddy">
+         <cstring>popupDictionaryComboBox</cstring>
         </property>
        </widget>
       </item>
@@ -74,27 +77,36 @@
       <item row="3" column="1">
        <widget class="QLabel" name="label_4">
         <property name="text">
-         <string>Width</string>
+         <string>&amp;Width</string>
         </property>
         <property name="alignment">
          <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+        </property>
+        <property name="buddy">
+         <cstring>popupWidthSpinBox</cstring>
         </property>
        </widget>
       </item>
       <item row="2" column="0" colspan="2">
        <widget class="QLabel" name="label_3">
         <property name="text">
-         <string>Shortcut</string>
+         <string>&amp;Shortcut</string>
+        </property>
+        <property name="buddy">
+         <cstring>popupShortcut</cstring>
         </property>
        </widget>
       </item>
       <item row="3" column="3">
        <widget class="QLabel" name="label_5">
         <property name="text">
-         <string>Height</string>
+         <string>&amp;Height</string>
         </property>
         <property name="alignment">
          <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+        </property>
+        <property name="buddy">
+         <cstring>popupHeightSpinBox</cstring>
         </property>
        </widget>
       </item>
