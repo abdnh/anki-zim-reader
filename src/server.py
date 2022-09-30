@@ -80,15 +80,12 @@ def create_server(
             except:
                 pass
         try:
-            try:
-                article = zim_server.dictionary.get_article(path)
-            except KeyError:
+            article = zim_server.dictionary.get_article(path)
+            if not article:
                 *_, word = path.rsplit("/", maxsplit=1)
                 results = zim_server.dictionary.zim_client.search(word, 0, -1)
                 if results:
                     article = zim_server.dictionary.get_article(results[0].url)
-                else:
-                    article = None
         except:
             # FIXME: swallow random unpacking errors for now until issue #3 is fixed
             return flask.make_response("Internal server error", HTTPStatus.NOT_FOUND)

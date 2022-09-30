@@ -22,9 +22,11 @@ class Parser(ABC):
         query = query.strip(string.punctuation).strip()
         forms = [query, query.lower(), query.title(), query.upper()]
         for form in forms:
-            article = dictionary.zim_client.get_article(form)
-            if article:
+            try:
+                article = dictionary.zim_client.get_article(form)
                 return article
+            except KeyError:
+                pass
         return None
 
     def get_article(self, query: str, dictionary: ZIMDict) -> Article | None:
