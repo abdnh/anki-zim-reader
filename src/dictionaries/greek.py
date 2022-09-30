@@ -119,7 +119,7 @@ class GreekParser(Parser):
                         redirect_word = match.group(1)
                         break
                 if redirect_word:
-                    return redirect_word
+                    return self.follow_redirects(redirect_word, dictionary)
         return query
 
     def lookup(self, query: str, dictionary: ZIMDict) -> DictEntry | None:
