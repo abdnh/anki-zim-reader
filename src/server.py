@@ -83,7 +83,7 @@ def create_server(
             article = zim_server.dictionary.get_article(path)
             if not article:
                 *_, word = path.rsplit("/", maxsplit=1)
-                results = zim_server.dictionary.zim_client.search(word, 0, -1)
+                results = zim_server.dictionary.zim_client.search(word, 0, 1)
                 if results:
                     article = zim_server.dictionary.get_article(results[0].url)
         except:
