@@ -27,6 +27,10 @@ class Parser(ABC):
                 return article
             except KeyError:
                 pass
+        # Return first search result, if any
+        results = dictionary.zim_client.search(query)
+        if results:
+            return dictionary.zim_client.get_article(results[0].url)
         return None
 
     def get_article(self, query: str, dictionary: ZIMDict) -> Article | None:

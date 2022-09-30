@@ -2,7 +2,6 @@ from __future__ import annotations
 
 import functools
 import shutil
-import string
 from dataclasses import dataclass
 from pathlib import Path
 from typing import TYPE_CHECKING
@@ -13,6 +12,7 @@ from zimply_core.zim_core import Article, ZIMClient
 
 from ..consts import USER_FILES
 from ..errors import ZIMReaderException
+from .parser import DefaultParser
 
 if TYPE_CHECKING:
     from .parser import Parser
@@ -30,7 +30,7 @@ class DictEntry:
 
 
 class ZIMDict:
-    def __init__(self, name: str, parser: Parser):
+    def __init__(self, name: str, parser: Parser = DefaultParser()):
         folder_path = USER_FILES / name
         zim_path = next(folder_path.glob("*.zim"), None)
         if not zim_path:
@@ -39,8 +39,7 @@ class ZIMDict:
             zim_path,
             encoding="utf-8",
             auto_delete=True,
-            # TODO: enable search support
-            enable_search=False,
+            enable_search=True,
         )
         self.parser = parser
 
@@ -55,8 +54,7 @@ class ZIMDict:
         output_folder.mkdir(exist_ok=True)
         shutil.copy(filename, output_folder)
         # Build search index
-        # FIXME: it's potentially unsafe to enable search support for now as the index is build in a separate thread and we're not keeping track of its progress
-        # ZIMDict(name)
+        ZIMDict(name)
 
     @staticmethod
     @functools.lru_cache
