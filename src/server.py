@@ -91,7 +91,7 @@ def create_server(dictionary: str) -> ZIMServer:
             response = flask.make_response(article.data, HTTPStatus.OK)
             response.headers["Content-Type"] = article.mimetype
             return response
-        return flask.make_response("Requested resource not found", HTTPStatus.NOT_FOUND)
+        return flask.make_response(f"{path} not found", HTTPStatus.NOT_FOUND)
 
     return zim_server
 
