@@ -34,7 +34,7 @@ class SpanishParser(Parser):
 
     def lookup(self, query: str, dictionary: ZIMDict) -> DictEntry | None:
         try:
-            soup = dictionary.get_soup(dictionary.zim_client, query)
+            soup = dictionary.get_soup(query)
         except KeyError:
             return None
         pos: list[str] = []

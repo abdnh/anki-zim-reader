@@ -8,7 +8,7 @@ import flask
 from flask import Flask, Response
 from waitress.server import create_server as create_waitress_server
 
-from .dictionaries import ZIMDict
+from .dictionaries import DefaultParser, Parser, ZIMDict
 
 
 class ZIMServer(threading.Thread):
@@ -16,11 +16,11 @@ class ZIMServer(threading.Thread):
     _ready = threading.Event()
     daemon = True
 
-    def __init__(self, app: Flask, dictionary: str) -> None:
+    def __init__(self, app: Flask, dictionary: str, parser: Parser) -> None:
         super().__init__()
         self.app = app
         self.is_shutdown = False
-        self.dictionary = ZIMDict(dictionary)
+        self.dictionary = ZIMDict(dictionary, parser)
 
     def run(self) -> None:
         try:
@@ -58,10 +58,12 @@ class ZIMServer(threading.Thread):
         return f"http://127.0.0.1:{self.port}/"
 
 
-def create_server(dictionary: str) -> ZIMServer:
+def create_server(
+    dictionary: str, parser: Parser = DefaultParser(), follow_redirects=False
+) -> ZIMServer:
     app = Flask(__name__)
 
-    zim_server = ZIMServer(app, dictionary)
+    zim_server = ZIMServer(app, dictionary, parser)
 
     @app.route("/")
     def index() -> Response:
@@ -72,16 +74,19 @@ def create_server(dictionary: str) -> ZIMServer:
 
     @app.route("/<path:path>")
     def handle_request(path: str) -> Response:
+        if follow_redirects:
+            try:
+                path = parser.follow_redirects(path, zim_server.dictionary)
+            except:
+                pass
         try:
             try:
-                article = zim_server.dictionary.zim_client.get_article(path)
+                article = zim_server.dictionary.get_article(path)
             except KeyError:
                 *_, word = path.rsplit("/", maxsplit=1)
                 results = zim_server.dictionary.zim_client.search(word, 0, -1)
                 if results:
-                    article = zim_server.dictionary.zim_client.get_article(
-                        results[0].url
-                    )
+                    article = zim_server.dictionary.get_article(results[0].url)
                 else:
                     article = None
         except:

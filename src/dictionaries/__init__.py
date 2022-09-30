@@ -6,10 +6,14 @@ from typing import Type
 from ..consts import USER_FILES
 from .dictionary import DictEntry, ZIMDict
 from .greek import GreekParser
-from .parser import Parser
+from .parser import DefaultParser, Parser
 from .spanish import SpanishParser
 
-PARSER_CLASSES: list[Type[Parser]] = [GreekParser, SpanishParser]
+PARSER_CLASSES: list[Type[Parser]] = [
+    DefaultParser,
+    GreekParser,
+    SpanishParser,
+]
 
 
 def get_files() -> list[Path]:

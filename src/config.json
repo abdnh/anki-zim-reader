@@ -3,6 +3,7 @@
     "browser_shortcut": "Ctrl+W",
     "popup_shortcut": "Alt+Shift+S",
     "popup_dictionary": "",
+    "popup_parser": "",
     "popup_width": 800,
     "popup_height": 700,
     "file_field": "",

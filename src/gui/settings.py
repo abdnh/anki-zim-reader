@@ -39,6 +39,14 @@ class SettingsDialog(QDialog):
         except ValueError:
             idx = 0
         self.form.popupDictionaryComboBox.setCurrentIndex(idx)
+        parser_names = [parser.name for parser in dictionaries.PARSER_CLASSES]
+        self.form.parserComboBox.addItems(parser_names)
+        configured_parser = self.config["popup_parser"]
+        try:
+            idx = parser_names.index(configured_parser)
+        except ValueError:
+            idx = 0
+        self.form.parserComboBox.setCurrentIndex(idx)
         self.form.popupShortcut.setKeySequence(
             QKeySequence(self.config["popup_shortcut"])
         )
@@ -49,10 +57,12 @@ class SettingsDialog(QDialog):
 
     def on_save(self) -> None:
         popup_dictionary = self.form.popupDictionaryComboBox.currentText()
+        popup_parser = self.form.parserComboBox.currentText()
         popup_shortcut = self.form.popupShortcut.keySequence().toString()
         popup_width = self.form.popupWidthSpinBox.value()
         popup_height = self.form.popupHeightSpinBox.value()
         self.config["popup_dictionary"] = popup_dictionary
+        self.config["popup_parser"] = popup_parser
         self.config["popup_shortcut"] = popup_shortcut
         self.config["popup_width"] = popup_width
         self.config["popup_height"] = popup_height

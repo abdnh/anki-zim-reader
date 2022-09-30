@@ -9,7 +9,7 @@ from typing import TYPE_CHECKING
 
 from bs4 import BeautifulSoup
 from bs4.element import NavigableString, PageElement, Tag
-from zimply_core.zim_core import ZIMClient
+from zimply_core.zim_core import Article, ZIMClient
 
 from ..consts import USER_FILES
 from ..errors import ZIMReaderException
@@ -30,7 +30,7 @@ class DictEntry:
 
 
 class ZIMDict:
-    def __init__(self, name: str):
+    def __init__(self, name: str, parser: Parser):
         folder_path = USER_FILES / name
         zim_path = next(folder_path.glob("*.zim"), None)
         if not zim_path:
@@ -42,6 +42,7 @@ class ZIMDict:
             # TODO: enable search support
             enable_search=False,
         )
+        self.parser = parser
 
     @classmethod
     def build_dict(
@@ -59,14 +60,23 @@ class ZIMDict:
 
     @staticmethod
     @functools.lru_cache
-    def get_soup(zim_client: ZIMClient, query: str) -> BeautifulSoup:
-        article = zim_client.get_article(query)
-        soup = BeautifulSoup(article.data.decode(), "html.parser")
+    def _get_soup(
+        query: str, dictionary: ZIMDict, parser: Parser
+    ) -> BeautifulSoup | None:
+        article = parser.get_article(query, dictionary)
+        soup = None
+        if article:
+            soup = BeautifulSoup(article.data.decode(), "html.parser")
         return soup
 
-    def lookup(self, query: str, parser: Parser) -> DictEntry | None:
-        query = strip_punct(query).strip()
-        return parser.lookup(query, self)
+    def get_soup(self, query: str) -> BeautifulSoup | None:
+        return self._get_soup(query, self, self.parser)
+
+    def lookup(self, query: str) -> DictEntry | None:
+        return self.parser.lookup(query, self)
+
+    def get_article(self, query: str) -> Article | None:
+        return self.parser.get_article(query, self)
 
 
 def get_next_sibling_element(element: Tag) -> PageElement | None:
@@ -86,10 +96,3 @@ def get_prev_sibling_element(element: Tag) -> PageElement | None:
 def strip_images(element: Tag) -> None:
     for img in element.find_all("img"):
         img.decompose()
-
-
-PUNCT_TRANS_TABLE = str.maketrans("", "", string.punctuation)
-
-
-def strip_punct(text: str) -> str:
-    return text.translate(PUNCT_TRANS_TABLE)

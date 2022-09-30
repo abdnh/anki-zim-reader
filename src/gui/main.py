@@ -148,8 +148,8 @@ class ZIMFetcherDialog(QDialog):
                 textFormat="rich",
             )
             return
-        self.dictionary = ZIMDict(self.form.fileComboBox.currentText())
-        self.parser = PARSER_CLASSES[self.form.parserComboBox.currentIndex()]()
+        parser = PARSER_CLASSES[self.form.parserComboBox.currentIndex()]()
+        self.dictionary = ZIMDict(self.form.fileComboBox.currentText(), parser)
         word_field = self.form.wordFieldComboBox.currentText()
         definition_field_i = self.form.definitionFieldComboBox.currentIndex()
         example_field_i = self.form.exampleFieldComboBox.currentIndex()
@@ -218,7 +218,7 @@ class ZIMFetcherDialog(QDialog):
             word = strip_html(note[word_field])
             need_updating = False
             try:
-                dict_entry = self.dictionary.lookup(word, self.parser)
+                dict_entry = self.dictionary.lookup(word)
                 if not dict_entry:
                     self.errors.append(f'"{word}" was not found in the dictionary.')
                     continue

@@ -12,6 +12,7 @@ from aqt.reviewer import Reviewer
 from aqt.webview import AnkiWebView, WebContent
 
 from . import server
+from .dictionaries import PARSER_CLASSES
 from .errors import ZIMReaderException
 
 zim_server: server.ZIMServer | None = None
@@ -86,8 +87,15 @@ def restart_server() -> None:
         zim_server.shutdown()
     config = mw.addonManager.getConfig(__name__)
     dictionary = config["popup_dictionary"]
+    parser_name = config["popup_parser"].lower()
+    parser_names = [parser.name.lower() for parser in PARSER_CLASSES]
     try:
-        zim_server = server.create_server(dictionary)
+        parser_idx = parser_names.index(parser_name)
+    except ValueError:
+        parser_idx = 0
+    parser = PARSER_CLASSES[parser_idx]()
+    try:
+        zim_server = server.create_server(dictionary, parser)
     except ZIMReaderException:
         return
     zim_server.start()

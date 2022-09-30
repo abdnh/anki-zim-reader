@@ -3,7 +3,7 @@ from __future__ import annotations
 import re
 from typing import TYPE_CHECKING
 
-from bs4 import BeautifulSoup
+from zimply_core.zim_core import Article
 
 from .dictionary import DictEntry, ZIMDict, strip_images
 from .parser import Parser
@@ -86,21 +86,16 @@ class GreekParser(Parser):
         )
     )
 
-    def _get_soup(self, query: str, dictionary: ZIMDict) -> BeautifulSoup | None:
-        forms = [query, query.lower(), query.title(), query.upper()]
+    def get_article(self, query: str, dictionary: ZIMDict) -> Article | None:
+        article = super().get_article(query, dictionary)
+        if article:
+            return article
         if self.nlp:
-            forms.append(self._stem(query))
-        soup = None
-        for form in forms:
-            try:
-                soup = dictionary.get_soup(dictionary.zim_client, form)
-                break
-            except KeyError:
-                pass
-        return soup
+            return super().get_article(self._stem(query), dictionary)
+        return None
 
     def follow_redirects(self, query: str, dictionary: ZIMDict) -> str:
-        soup = self._get_soup(query, dictionary)
+        soup = dictionary.get_soup(query)
         if not soup:
             return query
         greek_el = None
@@ -123,7 +118,7 @@ class GreekParser(Parser):
         return query
 
     def lookup(self, query: str, dictionary: ZIMDict) -> DictEntry | None:
-        soup = self._get_soup(query, dictionary)
+        soup = dictionary.get_soup(query)
         if not soup:
             return None
         pos: list[str] = []
