@@ -100,7 +100,6 @@ class GreekParser(Parser):
         return soup
 
     def follow_redirects(self, query: str, dictionary: ZIMDict) -> str:
-        redirect_word = None
         soup = self._get_soup(query, dictionary)
         if not soup:
             return query
@@ -113,6 +112,7 @@ class GreekParser(Parser):
             parent_details = greek_el.find_parents("details")[0]
             for entry in parent_details.select("details"):
                 entry_text = entry.get_text()
+                redirect_word = None
                 for (redirect_pattern, _) in self.REDIRECT_PATTERNS:
                     match = redirect_pattern.search(entry_text)
                     if match:
@@ -120,7 +120,7 @@ class GreekParser(Parser):
                         break
                 if redirect_word:
                     return redirect_word
-        return redirect_word
+        return query
 
     def lookup(self, query: str, dictionary: ZIMDict) -> DictEntry | None:
         soup = self._get_soup(query, dictionary)
