@@ -75,7 +75,9 @@ def on_editor_button_clicked(editor: Editor) -> None:
 
 def on_editor_did_init_buttons(buttons: List[str], editor: Editor) -> None:
     config = mw.addonManager.getConfig(__name__)
-    shortcut = config["editor_shortcut"]
+    shortcut = QKeySequence(config["editor_shortcut"]).toString(
+        QKeySequence.SequenceFormat.NativeText
+    )
     button = editor.addButton(
         icon=os.path.join(consts.ICONS_DIR, "logo.svg"),
         cmd="zim",
