@@ -71,6 +71,8 @@ class ZIMDict:
         return self._get_soup(query, self, self.parser)
 
     def lookup(self, query: str) -> DictEntry | None:
+        if not query.strip():
+            return None
         return self.parser.lookup(query, self)
 
     def get_article(self, query: str) -> Article | None:

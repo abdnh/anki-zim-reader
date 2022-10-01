@@ -218,6 +218,8 @@ class ZIMFetcherDialog(QDialog):
             word = strip_html(note[word_field])
             need_updating = False
             try:
+                if not word:
+                    continue
                 dict_entry = self.dictionary.lookup(word)
                 if not dict_entry:
                     self.errors.append(f'"{word}" was not found in the dictionary.')
