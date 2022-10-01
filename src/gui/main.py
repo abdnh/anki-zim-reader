@@ -172,7 +172,6 @@ class ZIMFetcherDialog(QDialog):
 
         def on_failure(exc: Exception) -> None:
             self.mw.progress.finish()
-            # showWarning(str(exc), parent=self, title=consts.ADDON_NAME)
             self.accept()
             raise exc
 

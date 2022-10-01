@@ -66,11 +66,7 @@ See <a href="https://wiki.kiwix.org/wiki/Content_in_all_languages">this page</a>
     def on_add(self) -> None:
         def on_done(future: Future) -> None:
             self.mw.progress.finish()
-            try:
-                future.result()
-            except Exception as exc:
-                showWarning(str(exc), parent=self, title=consts.ADDON_NAME)
-                return
+            future.result()
             tooltip("Successfully imported dictionary", parent=self.mw)
             self.accept()
 
