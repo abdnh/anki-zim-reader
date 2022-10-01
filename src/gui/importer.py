@@ -43,8 +43,9 @@ class ImportDialog(QDialog):
             lambda link: openLink(link),  # pylint: disable=unnecessary-lambda
         )
         self.form.description.setText(
-            """Only a limited number of <a href="https://en.wikipedia.org/wiki/ZIM_(file_format)">ZIM</a> \
-files listed at <a href="https://wiki.kiwix.org/wiki/Content_in_all_languages">this page</a> are supported currently."""
+            """You should be able to import any ZIM file, but note that only a limited number of files currently have parsers to extract information like definitions and example sentences from them and fill cards in the add-on's main dialog. \
+Though any file should work with the pop-up dictionary feature as it doesn't require file-specific handling for the most part. \
+See <a href="https://wiki.kiwix.org/wiki/Content_in_all_languages">this page</a> for a long list of ZIM files that you can download and use with this add-on."""
         )
 
     def on_choose_file(self) -> None:
