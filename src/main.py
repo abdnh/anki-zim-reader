@@ -1,3 +1,4 @@
+import logging
 import sys
 from typing import List
 
@@ -10,6 +11,9 @@ from aqt.qt import *
 from aqt.utils import showText, showWarning, tooltip
 
 from . import consts
+
+# Silence RuntimeError error at shutdown triggered for some reason by logging in zimply-core
+logging.raiseExceptions = False
 
 sys.path.append(str(consts.ADDON_DIR / "vendor"))
 
