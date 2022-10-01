@@ -27,8 +27,15 @@ pylint:
 test:
 	python -m unittest
 
+SPACY := false
+ifeq ($(SPACY), true)
+	SPACY_FLAG=-s
+else
+	SPACY_FLAG=""
+endif
+
 vendor:
-	./vendor.sh
+	./vendor.sh $(SPACY_FLAG)
 
 clean:
 	rm -rf build/
