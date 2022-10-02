@@ -26,7 +26,7 @@ disable=
   invalid-name,
   global-statement,
   import-outside-toplevel,
-  ; too-many-locals,
+  too-many-locals,
   ; too-many-branches,
   ; too-many-statements,
 

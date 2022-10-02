@@ -5,6 +5,7 @@ from typing import Type
 
 from ..consts import USER_FILES
 from .dictionary import DictEntry, ZIMDict
+from .german import GermanParser
 from .greek import GreekParser
 from .parser import DefaultParser, Parser
 from .spanish import SpanishParser
@@ -13,6 +14,7 @@ PARSER_CLASSES: list[Type[Parser]] = [
     DefaultParser,
     GreekParser,
     SpanishParser,
+    GermanParser,
 ]
 
 

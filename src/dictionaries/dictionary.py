@@ -7,7 +7,7 @@ from pathlib import Path
 from typing import TYPE_CHECKING
 
 from bs4 import BeautifulSoup
-from bs4.element import NavigableString, PageElement, Tag
+from bs4.element import NavigableString, Tag
 from zimply_core.zim_core import Article, ZIMClient
 
 from ..consts import USER_FILES
@@ -79,18 +79,25 @@ class ZIMDict:
         return self.parser.get_article(query, self)
 
 
-def get_next_sibling_element(element: Tag) -> PageElement | None:
+def get_next_sibling_element(element: Tag) -> Tag | None:
     sibling = element.next_sibling
     while isinstance(sibling, NavigableString):
         sibling = sibling.next_sibling
     return sibling
 
 
-def get_prev_sibling_element(element: Tag) -> PageElement | None:
+def get_prev_sibling_element(element: Tag) -> Tag | None:
     sibling = element.previous_sibling
     while isinstance(sibling, NavigableString):
         sibling = sibling.previous_sibling
     return sibling
+
+
+def get_first_element_child(element: Tag) -> Tag | None:
+    for child in element.children:
+        if not isinstance(child, NavigableString):
+            return child
+    return None
 
 
 def strip_images(element: Tag) -> None:
