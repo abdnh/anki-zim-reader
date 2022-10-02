@@ -24,8 +24,3 @@ jobs:
         with:
           name: zim_reader
           path: src/
-
-      - uses: actions/upload-artifact@v3
-        with:
-          name: python-zstandard-build
-          path: python-zstandard/build
