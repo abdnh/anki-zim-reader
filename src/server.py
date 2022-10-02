@@ -1,6 +1,5 @@
 from __future__ import annotations
 
-import struct
 import threading
 from http import HTTPStatus
 
@@ -59,7 +58,7 @@ class ZIMServer(threading.Thread):
 
 
 def create_server(
-    dictionary: str, parser: Parser = DefaultParser(), follow_redirects=False
+    dictionary: str, parser: Parser = DefaultParser(), follow_redirects: bool = False
 ) -> ZIMServer:
     app = Flask(__name__)
 

@@ -7,10 +7,10 @@ import string
 from abc import ABC, abstractmethod
 from typing import TYPE_CHECKING
 
+from zimply_core.zim_core import Article
+
 if TYPE_CHECKING:
     from .dictionary import DictEntry, ZIMDict
-
-from zimply_core.zim_core import Article
 
 
 class Parser(ABC):

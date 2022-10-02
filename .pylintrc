@@ -27,8 +27,8 @@ disable=
   global-statement,
   import-outside-toplevel,
   too-many-locals,
-  ; too-many-branches,
-  ; too-many-statements,
+  too-many-branches,
+  too-many-statements,
 
 [BASIC]
 good-names =
