@@ -3,7 +3,7 @@ pip install git+https://github.com/abdnh/ankibuild@5092188f6b7c73e7bab2c7f64e700
 # Build zstandard from source to work around "C API versions mismatch" error
 git clone https://github.com/indygreg/python-zstandard
 cd python-zstandard
-git checkout 28cd74decb47d8a5294eb59e793cb24a0f242e9e
+git checkout 6006fdf164ac0e89b260706a3e4ef5806aceffb6
 cd ..
 pip install ./python-zstandard/ -t src/vendor
 
