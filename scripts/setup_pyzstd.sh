@@ -2,6 +2,7 @@
 
 # TODO: handle all supported Python versions
 
+mkdir -p build
 cd build
 
 platforms=(
@@ -38,3 +39,4 @@ done
 
 # Copy to vendor dir
 cp -r ./pyzstd/* ../src/vendor
+read
