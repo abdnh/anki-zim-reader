@@ -168,11 +168,12 @@ class GreekParser(Parser):
                         break
                 if redirect_word:
                     redirect_dictentry = self.lookup(redirect_word, dictionary)
-                    if should_merge:
-                        redirect_dictentry.definitions = [
-                            entry.decode_contents()
-                        ] + redirect_dictentry.definitions
-                    return redirect_dictentry
+                    if redirect_dictentry:
+                        if should_merge:
+                            redirect_dictentry.definitions = [
+                                entry.decode_contents()
+                            ] + redirect_dictentry.definitions
+                        return redirect_dictentry
                 # We're dumping all the entry contents here, which can include example sentences.
                 # FIXME: find a consistent structure to parse this mess
                 definitions.append(entry.decode_contents())
