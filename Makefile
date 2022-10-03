@@ -35,7 +35,7 @@ else
 endif
 
 vendor:
-	./vendor.sh $(SPACY_FLAG)
+	./scripts/vendor.sh $(SPACY_FLAG)
 
 clean:
 	rm -rf build/
