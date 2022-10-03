@@ -39,4 +39,3 @@ done
 
 # Copy to vendor dir
 cp -r ./pyzstd/* ../src/vendor
-read
