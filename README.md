@@ -57,6 +57,8 @@ For the parser option, if your chosen dictionary file doesn't have a dedicated p
 
 TODO: publish to AnkiWeb
 
+You can get bleeding-edge build of the add-on from the [Actions](https://github.com/abdnh/anki-zim-reader/actions?query=is%3Asuccess+event%3Apush+branch%3Amaster++) tab. Click the topmost commit with a green checkmark, then click "zim_reader" in the Artifacts section. You can rename the .zip extension to .ankiaddon and double click on the file to install it in Anki, or you can extract the zip into your addons21 folder.
+
 ## TODO
 
 Currently planned features are
