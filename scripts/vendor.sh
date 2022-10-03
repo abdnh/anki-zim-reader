@@ -14,5 +14,4 @@ if [ "$spacy" = true ]; then
     pip install spacy==3.4.1 -t src/vendor
     python -m spacy download el_core_news_sm -t src/vendor
 fi
-
-# TODO: download tippy.js
+./scripts/setup_tippyjs.sh
