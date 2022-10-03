@@ -1,3 +1,5 @@
+#!/bin/bash
+
 # TODO: handle all supported Python versions
 
 cd build

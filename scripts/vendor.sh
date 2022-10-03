@@ -1,3 +1,5 @@
+#!/bin/bash
+
 spacy=false
 while getopts ":s" option; do
    case $option in
