@@ -1,6 +1,6 @@
 # TODO: handle all supported Python versions
 
-pushd build
+cd build
 
 platforms=(
     win_amd64
