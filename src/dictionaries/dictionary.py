@@ -27,6 +27,7 @@ class DictEntry:
     pos: str
     inflections: str
     translations: str
+    images: str
 
 
 class ZIMDict:
@@ -77,6 +78,17 @@ class ZIMDict:
 
     def get_article(self, query: str) -> Article | None:
         return self.parser.get_article(query, self)
+
+    def save_resource(self, path: str) -> str | None:
+        # Strip out '../'
+        path = path.split("/", maxsplit=1)[-1]
+        try:
+            article = self.zim_client.get_article(path)
+        except KeyError:
+            return None
+        filename = path.split("/")[-1]
+        assert self.parser.col
+        return self.parser.col.media.write_data(filename, article.data)
 
 
 def get_next_sibling_element(element: Tag) -> Tag | None:

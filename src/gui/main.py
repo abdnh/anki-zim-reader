@@ -48,6 +48,7 @@ class ZIMFetcherDialog(QDialog):
             self.form.POSFieldComboBox,
             self.form.inflectionFieldComboBox,
             self.form.translationFieldComboBox,
+            self.form.imageFieldComboBox,
         ]
         self.setWindowTitle(consts.ADDON_NAME)
         icon = QIcon(os.path.join(consts.ICONS_DIR, "logo.svg"))
@@ -97,6 +98,7 @@ class ZIMFetcherDialog(QDialog):
         "part_of_speech_field",
         "inflection_field",
         "translation_field",
+        "image_field",
     )
 
     def set_last_used_settings(self) -> None:
@@ -148,7 +150,7 @@ class ZIMFetcherDialog(QDialog):
                 textFormat="rich",
             )
             return
-        parser = PARSER_CLASSES[self.form.parserComboBox.currentIndex()]()
+        parser = PARSER_CLASSES[self.form.parserComboBox.currentIndex()](self.mw.col)
         self.dictionary = ZIMDict(self.form.fileComboBox.currentText(), parser)
         word_field = self.form.wordFieldComboBox.currentText()
         definition_field_i = self.form.definitionFieldComboBox.currentIndex()
@@ -157,6 +159,7 @@ class ZIMFetcherDialog(QDialog):
         pos_field_i = self.form.POSFieldComboBox.currentIndex()
         inflection_field_i = self.form.inflectionFieldComboBox.currentIndex()
         translation_field_i = self.form.translationFieldComboBox.currentIndex()
+        image_field_i = self.form.imageFieldComboBox.currentIndex()
 
         field_tuples = (
             (definition_field_i, self._get_definitions),
@@ -165,6 +168,7 @@ class ZIMFetcherDialog(QDialog):
             (pos_field_i, self._get_part_of_speech),
             (inflection_field_i, self._get_inflections),
             (translation_field_i, self._get_translations),
+            (image_field_i, self._get_images),
         )
 
         def on_success(ret: Any) -> None:
@@ -266,3 +270,6 @@ class ZIMFetcherDialog(QDialog):
 
     def _get_translations(self, entry: DictEntry) -> str:
         return entry.translations
+
+    def _get_images(self, entry: DictEntry) -> str:
+        return entry.images

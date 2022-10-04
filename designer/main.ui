@@ -150,6 +150,19 @@
        </property>
       </widget>
      </item>
+     <item row="9" column="0">
+      <widget class="QLabel" name="label_7">
+       <property name="text">
+        <string>I&amp;mage</string>
+       </property>
+       <property name="buddy">
+        <cstring>imageFieldComboBox</cstring>
+       </property>
+      </widget>
+     </item>
+     <item row="9" column="1">
+      <widget class="QComboBox" name="imageFieldComboBox"/>
+     </item>
     </layout>
    </item>
   </layout>

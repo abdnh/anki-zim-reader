@@ -9,6 +9,7 @@ from .dictionary import DictEntry, ZIMDict, strip_images
 from .parser import Parser
 
 if TYPE_CHECKING:
+    from anki.collection import Collection
     from spacy.language import Language
 
 
@@ -20,7 +21,8 @@ class GreekParser(Parser):
 
     name = "Greek"
 
-    def __init__(self) -> None:
+    def __init__(self, col: Collection | None) -> None:
+        super().__init__(col)
         self.nlp: Language | None = None
         try:
             import spacy
@@ -28,7 +30,6 @@ class GreekParser(Parser):
             self.nlp = spacy.load("el_core_news_sm")
         except:
             pass
-        super().__init__()
 
     def _stem(self, word: str) -> str:
         doc = self.nlp(word)
@@ -186,4 +187,6 @@ class GreekParser(Parser):
             "<br>".join(pos),
             inflections,
             translations,
+            # TODO: images
+            "",
         )

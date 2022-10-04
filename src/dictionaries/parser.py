@@ -10,11 +10,16 @@ from typing import TYPE_CHECKING
 from zimply_core.zim_core import Article
 
 if TYPE_CHECKING:
+    from anki.collection import Collection
+
     from .dictionary import DictEntry, ZIMDict
 
 
 class Parser(ABC):
     name: str
+
+    def __init__(self, col: Collection | None = None):
+        self.col = col
 
     @staticmethod
     @functools.lru_cache

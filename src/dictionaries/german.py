@@ -35,6 +35,7 @@ class GermanParser(Parser):
         gender_list = []
         inflections_list = []
         translations_list = []
+        images_list = []
 
         entries = german_details.select('details[data-level="3"]')
         for entry in entries:
@@ -61,6 +62,15 @@ class GermanParser(Parser):
             if inflection_table:
                 inflections_list.append(inflection_table.decode())
 
+            imgs = entry.select(".thumbinner img")
+            for img in imgs:
+                src = img["src"]
+                filename = dictionary.save_resource(src)
+                if filename:
+                    img["src"] = filename
+                    # TODO: maybe strip all other attributes
+                    images_list.append(img.decode())
+
         translations_table = german_details.select_one('[title*="Übersetzungen"]')
         if translations_table:
             translations_list.append(translations_table.decode())
@@ -73,4 +83,5 @@ class GermanParser(Parser):
             "<br>".join(pos_list),
             "<br>".join(inflections_list),
             "<br>".join(translations_list),
+            "".join(images_list),
         )

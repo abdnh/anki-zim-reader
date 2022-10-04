@@ -80,4 +80,6 @@ class SpanishParser(Parser):
             "<br>".join(pos),
             inflections,
             translations,
+            # TODO: images
+            "",
         )
