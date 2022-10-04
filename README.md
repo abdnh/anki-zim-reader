@@ -10,8 +10,8 @@ This is a fork of the [Wiktionary](https://github.com/abdnh/anki-wiktionary) add
 ## Supported dictionaries
 
 Currently supported dictionaries are the Greek and the Spanish Wiktionary files.[^1]
-Pull requests to add support for more dictionaries and improve existing ones are very much appreciated. The HTML content of the entries stored in the ZIM file needs to be parsed for that. See [greek.py](./src/dictionaries/greek.py) for an example of how it's done for Greek.
 If you want to see support for your language, you can open a feature request in the [issue tracker](https://github.com/abdnh/anki-zim-reader/issues).
+If you're a developer and want to contribute, please see [development.md](./development.md).
 
 ## Usage
 
@@ -55,9 +55,9 @@ For the parser option, if your chosen dictionary file doesn't have a dedicated p
 
 ## Download
 
-TODO: publish to AnkiWeb
+See [development.md](./development.md#building-the-add-on).
 
-You can get bleeding-edge build of the add-on from the [Actions](https://github.com/abdnh/anki-zim-reader/actions?query=is%3Asuccess+event%3Apush+branch%3Amaster++) tab. Click the topmost commit with a green checkmark, then click "zim_reader" in the Artifacts section. You can rename the .zip extension to .ankiaddon and double click on the file to install it in Anki, or you can extract the zip into your addons21 folder.
+TODO: publish to AnkiWeb
 
 ## TODO
 
