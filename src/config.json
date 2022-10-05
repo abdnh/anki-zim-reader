@@ -15,5 +15,6 @@
     "part_of_speech_field": "",
     "inflection_field": "",
     "translation_field": "",
-    "image_field": ""
+    "image_field": "",
+    "skip_non_empty": false
 }

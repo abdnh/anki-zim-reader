@@ -122,12 +122,14 @@ class ZIMFetcherDialog(QDialog):
                 if text.lower() == field_name:
                     combo.setCurrentIndex(i)
                     break
+        self.form.skipNonEmptyCheckBox.setChecked(self.config["skip_non_empty"])
 
     def save_settings(self) -> None:
         self.config["file_field"] = self.form.fileComboBox.currentText()
         self.config["parser_field"] = self.form.parserComboBox.currentText()
         for i, field_opt in enumerate(self.CONFIG_MODEL_FIELDS):
             self.config[field_opt] = self.combos[i].currentText()
+        self.config["skip_non_empty"] = self.form.skipNonEmptyCheckBox.isChecked()
         self.mw.addonManager.writeConfig(__name__, self.config)
 
     def on_finished(self, result: int) -> None:
@@ -152,6 +154,7 @@ class ZIMFetcherDialog(QDialog):
             return
         parser = PARSER_CLASSES[self.form.parserComboBox.currentIndex()](self.mw.col)
         self.dictionary = ZIMDict(self.form.fileComboBox.currentText(), parser)
+        skip_non_empty = self.form.skipNonEmptyCheckBox.isChecked()
         word_field = self.form.wordFieldComboBox.currentText()
         definition_field_i = self.form.definitionFieldComboBox.currentIndex()
         example_field_i = self.form.exampleFieldComboBox.currentIndex()
@@ -184,6 +187,7 @@ class ZIMFetcherDialog(QDialog):
             op=lambda col: self._fill_notes(
                 word_field,
                 field_tuples,
+                skip_non_empty,
             ),
             success=on_success,
         )
@@ -201,6 +205,7 @@ class ZIMFetcherDialog(QDialog):
         self,
         word_field: str,
         field_tuples: Tuple[Tuple[int, Callable[[DictEntry], str]], ...],
+        skip_non_empty: bool,
     ) -> None:
         want_cancel = False
         self.errors = []
@@ -231,8 +236,12 @@ class ZIMFetcherDialog(QDialog):
                     if not field_tuple[0]:
                         continue
                     contents = field_tuple[1](dict_entry)
-                    note[self.field_names[field_tuple[0]]] = contents
-                    need_updating = True
+                    if not (
+                        skip_non_empty
+                        and note[self.field_names[field_tuple[0]]].strip()
+                    ):
+                        note[self.field_names[field_tuple[0]]] = contents
+                        need_updating = True
             except ZIMReaderException as exc:
                 self.errors.append(str(exc))
             finally:
