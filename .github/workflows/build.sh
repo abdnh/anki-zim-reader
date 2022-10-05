@@ -1,5 +1,5 @@
 #!/bin/bash
 
-pip install git+https://github.com/abdnh/ankibuild@5092188f6b7c73e7bab2c7f64e7008a7e24466f6#egg=ankibuild[qt5,qt6]
+pip install git+https://github.com/abdnh/ankibuild@6d5f33d5fb781cf889eb982b9999a5b2f2608659#egg=ankibuild[qt5,qt6]
 make vendor
 make
