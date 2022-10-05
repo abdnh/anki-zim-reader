@@ -60,21 +60,21 @@ class ZIMDict:
     @staticmethod
     @functools.lru_cache
     def _get_soup(
-        query: str, dictionary: ZIMDict, parser: Parser
+        title: str, dictionary: ZIMDict, parser: Parser
     ) -> BeautifulSoup | None:
-        article = parser.get_article(query, dictionary)
+        article = parser.get_article(title, dictionary, is_title=True)
         soup = None
         if article:
             soup = BeautifulSoup(article.data.decode(), "html.parser")
         return soup
 
-    def get_soup(self, query: str) -> BeautifulSoup | None:
-        return self._get_soup(query, self, self.parser)
+    def get_soup(self, title: str) -> BeautifulSoup | None:
+        return self._get_soup(title, self, self.parser)
 
-    def lookup(self, query: str) -> DictEntry | None:
-        if not query.strip():
+    def lookup(self, title: str) -> DictEntry | None:
+        if not title.strip():
             return None
-        return self.parser.lookup(query, self)
+        return self.parser.lookup(title, self)
 
     def get_article(self, query: str) -> Article | None:
         return self.parser.get_article(query, self)

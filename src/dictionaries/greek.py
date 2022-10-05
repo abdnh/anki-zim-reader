@@ -21,7 +21,7 @@ class GreekParser(Parser):
 
     name = "Greek"
 
-    def __init__(self, col: Collection | None) -> None:
+    def __init__(self, col: Collection | None = None) -> None:
         super().__init__(col)
         self.nlp: Language | None = None
         try:
@@ -87,12 +87,14 @@ class GreekParser(Parser):
         )
     )
 
-    def get_article(self, query: str, dictionary: ZIMDict) -> Article | None:
-        article = super().get_article(query, dictionary)
+    def get_article(
+        self, query: str, dictionary: ZIMDict, is_title: bool = False
+    ) -> Article | None:
+        article = super().get_article(query, dictionary, is_title)
         if article:
             return article
         if self.nlp:
-            return super().get_article(self._stem(query), dictionary)
+            return super().get_article(self._stem(query), dictionary, is_title)
         return None
 
     def follow_redirects(self, query: str, dictionary: ZIMDict) -> str:

@@ -23,23 +23,37 @@ class Parser(ABC):
 
     @staticmethod
     @functools.lru_cache
-    def _get_article(query: str, dictionary: ZIMDict) -> Article | None:
-        query = query.strip(string.punctuation).strip()
-        forms = [query, query.lower(), query.title(), query.upper()]
+    def _get_article(
+        path: str,
+        dictionary: ZIMDict,
+        is_title: bool,
+    ) -> Article | None:
+        get_article = (
+            dictionary.zim_client.get_article_by_title
+            if is_title
+            else dictionary.zim_client.get_article
+        )
+        nopunct = path.strip(string.punctuation).strip()
+        if is_title:
+            forms = [path, nopunct, nopunct.lower(), nopunct.title(), nopunct.upper()]
+        else:
+            forms = [path, path, path.lower(), path.title(), path.upper()]
         for form in forms:
             try:
-                article = dictionary.zim_client.get_article_by_title(form)
+                article = get_article(form)
                 return article
             except KeyError:
                 pass
         # Return first search result, if any
-        results = dictionary.zim_client.search(query, 0, 1)
+        results = dictionary.zim_client.search(path, 0, 1)
         if results:
-            return dictionary.zim_client.get_article_by_title(results[0].url)
+            return get_article(results[0].url)
         return None
 
-    def get_article(self, query: str, dictionary: ZIMDict) -> Article | None:
-        return self._get_article(query, dictionary)
+    def get_article(
+        self, path: str, dictionary: ZIMDict, is_title: bool = False
+    ) -> Article | None:
+        return self._get_article(path, dictionary, is_title)
 
     @abstractmethod
     def lookup(self, query: str, dictionary: ZIMDict) -> DictEntry | None:
