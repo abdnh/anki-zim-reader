@@ -64,8 +64,8 @@ TODO: publish to AnkiWeb
 Currently planned features are
 
 - [x] A pop-up feature that can be used to look up any word on the reviewer in imported ZIM files and view them in a nice format like in [Kiwix](https://www.kiwix.org/).
-- [ ] An API to allow other add-ons to make use of the add-on's features. Specifically, I plan to extend the [Create subs2srs cards with mpv video player](https://ankiweb.net/shared/info/1213145732) with a pop-up dictionary inside mpv with the support of [intersubs](https://github.com/abdnh/intersubs).
-- [ ] Change shortcuts to avoid conflicts with Wiktionary
+- [x] An API to allow other add-ons to make use of the add-on's features. Specifically, I plan to extend the [Create subs2srs cards with mpv video player](https://ankiweb.net/shared/info/1213145732) with a pop-up dictionary inside mpv with the support of [intersubs](https://github.com/abdnh/intersubs).
+- [ ] Maybe change shortcuts to avoid conflicts with Wiktionary
 - [ ] Update ankiweb_page.html and publish add-on
 
 ## License
