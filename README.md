@@ -9,7 +9,14 @@ This is a fork of the [Wiktionary](https://github.com/abdnh/anki-wiktionary) add
 
 ## Supported dictionaries
 
-Currently supported dictionaries are the Greek and the Spanish Wiktionary files.[^1]
+Currently supported dictionaries are the following:
+
+- Greek Wiktionary
+- Spanish Wiktionary
+- German Wiktionary
+
+We try to support the ZIM files provided by the [Kiwix](https://www.kiwix.org/) team at https://wiki.kiwix.org/wiki/Content_in_all_languages
+
 If you want to see support for your language, you can open a feature request in the [issue tracker](https://github.com/abdnh/anki-zim-reader/issues).
 If you're a developer and want to contribute, please see [development.md](./development.md).
 
@@ -87,4 +94,3 @@ I'm also available for freelance add-on development at Fiverr:
 
 <a href="https://www.fiverr.com/abd_nh/develop-an-anki-addon"><img height='36' src="https://i.imgur.com/0meG4dk.png"></a>
 
-[^1]: Specifically, the "wiktionary (Ελληνικά)" and "wiktionary (español)" dictionaries in https://wiki.kiwix.org/wiki/Content_in_all_languages
