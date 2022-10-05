@@ -1,16 +1,40 @@
-<img src="images/ankiweb_logo.png">
-
-This add-on allows you to import <a href="https://en.wikipedia.org/wiki/ZIM_(file_format)">ZIM</a> files and access their data inside Anki. The main focus of the add-on is to support extracting data such word definitions, example sentences, pronunciation, etc. from the Wiktionary ZIM files and add them to notes.
-This is a fork of the <a href="https://ankiweb.net/shared/info/2087444887">Wiktionary</a> add-on. The plan was to add ZIM support to the Wiktionary add-on in addition to the original support for Kaikki files, but the project's complexity grew up quickly and I got some neat ideas to extend the add-on with ZIM-specific additions, so I decided to split it into a new add-on to keep the Wiktionary add-on simple.
+This add-on allows you to import <a href="https://en.wikipedia.org/wiki/ZIM_(file_format)">ZIM</a> files and access their data inside Anki. The main focus of the add-on is to support extracting information such word definitions, example sentences, pronunciation, etc. from the Wiktionary ZIM files and add them to notes.
+This is a fork of the <a href="https://github.com/abdnh/anki-wiktionary">Wiktionary</a> add-on. The plan was to add ZIM support to the Wiktionary add-on in addition to the original support for Kaikki files, but I got some ideas to extend the add-on with ZIM-specific additions like a pop-up dictionary and a local server that can be accessed from other add-ons, so I decided to split it into a new add-on to keep the Wiktionary add-on simple.
 
 <b>Supported dictionaries</b>
-Currently supported dictionaries are the Greek and the Spanish Wiktionary files (Specifically, the "wiktionary (Ελληνικά)" and "wiktionary (español)" dictionaries in <a href="https://wiki.kiwix.org/wiki/Content_in_all_languages">this page</a>). Pull requests to add support for more dictionaries and improve existing ones are very much appreciated. The HTML content of the entries stored in the ZIM file needs to be parsed for that. See <a href="https://github.com/abdnh/anki-zim-reader/blob/master/./src/dictionaries/greek.py">greek.py</a> for an example of how it's done for Greek. If you want to see support for your language, you can open a feature request in the <a href="https://github.com/abdnh/anki-zim-reader/issues">issue tracker</a>.
+Currently supported dictionaries are the following:
+<ul><li>Greek Wiktionary</li><li>Spanish Wiktionary</li><li>German Wiktionary</li></ul>
+We try to support the ZIM files provided by the <a href="https://www.kiwix.org/">Kiwix</a> team at https://wiki.kiwix.org/wiki/Content_in_all_languages
+If you want to see support for your language, you can open a feature request in the <a href="https://github.com/abdnh/anki-zim-reader/issues">issue tracker</a>. If you're a developer and want to contribute, please see <a href="https://github.com/abdnh/anki-zim-reader/blob/master/development.md">development.md</a>.
 
 <b>Usage</b>
-The add-on provides an interface to fill notes with defintions, example sentences, etc. The interface can either be accessed from a button in the editor, or via the <i>Edit &gt; Bulk-define from ZIM file</i> menu item in the browser for bulk operations on selected notes. You can also configure shortcuts from <i>Tools &gt; Add-ons</i>.
-<img src="https://raw.githubusercontent.com/abdnh/anki-zim-reader/master/images/dialog.png" width="600"/>
-To import a new dictionary, go to <i>Tools &gt; ZIM Reader -&gt; Import a file</i>. <a href="https://wiki.kiwix.org/wiki/Content_in_all_languages">This page</a> has a lot of ZIM files available for download.
+
+<b>Importing a ZIM file</b>
+The dialog under <i>Tools &gt; ZIM Reader &gt; Import a file</i> allows you to import a new ZIM file and make it available for use in the add-on. <a href="https://wiki.kiwix.org/wiki/Content_in_all_languages">This page</a> has a lot of ZIM files available for download.
 <img src="https://raw.githubusercontent.com/abdnh/anki-zim-reader/master/images/import_dialog.png" width="600"/>
+
+<b>Filling in notes</b>
+The add-on provides an interface to fill existing notes with defintions, example sentences, etc. from imported files. The interface can either be accessed from a button in the editor, or via the <i>Edit &gt; Bulk-define from ZIM file</i> menu item in the browser for bulk operations on selected notes. You can also configure shortcuts from <i>Tools &gt; Add-ons</i>.
+<img src="https://raw.githubusercontent.com/abdnh/anki-zim-reader/master/images/dialog.png" width="600"/>
+Explanation of some options:
+<ul><li><b>File</b>: The imported ZIM file you want to extract info from.</li><li><b>Parser</b>: For the add-on to understand how to extract data from the chosen file, you need to tell it what "parser" it should use to do that. Only a limited number of ZIM files for a couple of languages currently have parsers.</li><li><b>Word</b>: The field where the word you want to query exists.</li><li>The other options decide to which field each kind of supported info goes.</li></ul>
+
+<b>Pop-up dictionary</b>
+There is also a feature to look up words in the reviewing screen in imported ZIM files. Unlike the "fill-in" feature, this should work on any imported ZIM file without the need for a special parser. If you select any word and press "Alt+Shift+S", a pop-up should be shown with the page of the selected word if found. You can configure the ZIM file used for the pop-up feature and some other settings from the <a href="https://github.com/abdnh/anki-zim-reader/blob/master/#settings">Settings</a> dialog.
+<img src="https://raw.githubusercontent.com/abdnh/anki-zim-reader/master/images/popup.png" width="600"/>
+
+<b>Settings</b>
+You can configure some settings of the add-on from <i>Tools &gt; ZIM Reader &gt; Settings</i>. Currently only the pop-up dictionary's settings are configurable here. For the parser option, if your chosen dictionary file doesn't have a dedicated parser, you can simply choose the "Default" parser. Parsers here are currently only useful to convert a word to its base form and search for that instead using language-specific rules if the exact word doesn't have a page in the dictionary.
+<img src="https://raw.githubusercontent.com/abdnh/anki-zim-reader/master/images/settings.png" width="600"/>
+
+<b>License</b>
+GPLv3 or later. See <a href="https://github.com/abdnh/anki-zim-reader/blob/master/LICENSE">LICENSE</a>.
+
+<b>Credit</b>
+<ul><li>The logo is adapted from the <a href="https://en.wikipedia.org/wiki/File:Kiwix_logo_v3.svg">Kiwix logo</a> (licensed under the <a href="https://creativecommons.org/licenses/by-sa/4.0/deed.en">CC BY-SA 4.0</a>) and the Anki logo from the <a href="https://github.com/PapirusDevelopmentTeam/papirus-icon-theme">Papirus icon theme</a> (licensed under the <a href="https://github.com/PapirusDevelopmentTeam/papirus-icon-theme/blob/master/LICENSE">GPLv3</a>).</li><li>The <a href="https://github.com/dylanmccall/zimply-core">zimply-core</a> library is used to extract data from ZIM files. See <a href="https://github.com/dylanmccall/zimply-core/blob/master/LICENSE.txt">license</a>.</li></ul>
+
+<b>Support</b>
+This add-on is experimental. I appreciate bug reports and suggestions. Please use the issue tracker on <a href="https://github.com/abdnh/anki-zim-reader/issues">GitHub</a> or post in the <a href="https://forums.ankiweb.net/t/zim-reader-for-anki/23669">this Anki Forums thread</a>.
 
 <b>Support me</b>
 Consider supporting me on Ko-fi or Patreon if you like my add-ons:
