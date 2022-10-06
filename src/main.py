@@ -1,4 +1,5 @@
 import logging
+import os
 import sys
 from typing import List
 
@@ -7,7 +8,7 @@ from aqt.browser.browser import Browser
 from aqt.editor import Editor
 from aqt.gui_hooks import browser_menus_did_init, editor_did_init_buttons
 from aqt.operations import CollectionOp
-from aqt.qt import *
+from aqt.qt import QAction, QKeySequence, QMenu
 from aqt.utils import showText, showWarning, tooltip
 
 from . import consts
@@ -20,6 +21,7 @@ sys.path.append(str(consts.ADDON_DIR / "vendor"))
 
 # pylint: disable=wrong-import-position
 from . import popup
+from .gui import qconnect
 from .gui.importer import ImportDialog
 from .gui.main import ZIMFetcherDialog
 from .gui.settings import SettingsDialog

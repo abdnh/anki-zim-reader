@@ -36,7 +36,7 @@ class GermanParser(Parser):
         gender_list = []
         inflections_list = []
         translations_list = []
-        images_list = []
+        images: list[str] = []
 
         entries = german_details.select('details[data-level="3"]')
         for entry in entries:
@@ -64,7 +64,7 @@ class GermanParser(Parser):
                 inflections_list.append(inflection_table.decode())
 
             imgs = save_images(dictionary, entry)
-            images_list.extend(img.decode() for img in imgs)
+            images.extend(img.decode() for img in imgs)
 
         translations_table = german_details.select_one('[title*="Übersetzungen"]')
         if translations_table:
@@ -78,5 +78,5 @@ class GermanParser(Parser):
             "<br>".join(pos_list),
             "<br>".join(inflections_list),
             "<br>".join(translations_list),
-            "".join(images_list),
+            "".join(images),
         )

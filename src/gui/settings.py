@@ -2,9 +2,10 @@ import os
 
 from aqt import qtmajor
 from aqt.main import AnkiQt
-from aqt.qt import QDialog, QIcon, QKeySequence, qconnect
+from aqt.qt import QDialog, QIcon, QKeySequence
 
 from .. import consts, dictionaries, popup
+from . import qconnect
 
 if qtmajor <= 5:
     from ..forms.settings_qt5 import Ui_Dialog

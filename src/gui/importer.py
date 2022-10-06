@@ -4,11 +4,12 @@ from typing import List
 
 from aqt import qtmajor
 from aqt.main import AnkiQt
-from aqt.qt import QDialog, QIcon, QKeySequence, qconnect
+from aqt.qt import QDialog, QIcon, QKeySequence
 from aqt.utils import getFile, openLink, showWarning, tooltip
 
 from .. import consts
 from ..dictionaries import ZIMDict
+from . import qconnect
 
 if qtmajor <= 5:
     from ..forms.importer_qt5 import Ui_Dialog

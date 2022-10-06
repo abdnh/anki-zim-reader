@@ -10,13 +10,14 @@ from anki.notes import Note
 from aqt import qtmajor
 from aqt.main import AnkiQt
 from aqt.operations import QueryOp
-from aqt.qt import QDialog, QIcon, QKeySequence, QWidget, qconnect
+from aqt.qt import QDialog, QIcon, QKeySequence, QWidget
 from aqt.utils import showWarning
 
 from .. import consts
 from ..dictionaries import PARSER_CLASSES, DictEntry, get_files
 from ..dictionaries.dictionary import ZIMDict
 from ..errors import ZIMReaderException
+from . import qconnect
 
 if qtmajor <= 5:
     from ..forms.main_qt5 import Ui_Dialog

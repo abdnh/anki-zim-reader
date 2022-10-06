@@ -77,8 +77,8 @@ class ZIMDict:
             return None
         return self.parser.lookup(title, self)
 
-    def get_article(self, query: str) -> Article | None:
-        return self.parser.get_article(query, self)
+    def get_article(self, path: str) -> Article | None:
+        return self.parser.get_article(path, self)
 
     def save_resource(self, path: str) -> str | None:
         # Strip out '../'

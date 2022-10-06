@@ -106,7 +106,7 @@ def reset_shortcut() -> None:
     global shortcut
     if shortcut:
         shortcut.deleteLater()
-    shortcut = QShortcut(
+    shortcut = QShortcut(  # type: ignore
         QKeySequence(config["popup_shortcut"]),
         mw,
         activated=show_tooltip,
