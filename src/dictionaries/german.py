@@ -67,8 +67,8 @@ class GermanParser(Parser):
                 src = img["src"]
                 filename = dictionary.save_resource(src)
                 if filename:
+                    img.attrs.clear()
                     img["src"] = filename
-                    # TODO: maybe strip all other attributes
                     images_list.append(img.decode())
 
         translations_table = german_details.select_one('[title*="Übersetzungen"]')
