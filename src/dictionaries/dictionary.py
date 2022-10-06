@@ -2,6 +2,7 @@ from __future__ import annotations
 
 import functools
 import shutil
+import urllib.parse
 from dataclasses import dataclass
 from pathlib import Path
 from typing import TYPE_CHECKING
@@ -82,6 +83,7 @@ class ZIMDict:
     def save_resource(self, path: str) -> str | None:
         # Strip out '../'
         path = path.split("/", maxsplit=1)[-1]
+        path = urllib.parse.unquote(path)
         try:
             article = self.zim_client.get_article(path)
         except KeyError:
