@@ -1,6 +1,6 @@
 from __future__ import annotations
 
-from .dictionary import DictEntry, ZIMDict, strip_images
+from .dictionary import DictEntry, ZIMDict, save_images, strip_images
 from .parser import Parser
 
 
@@ -41,14 +41,17 @@ class SpanishParser(Parser):
         definitions: list[str] = []
         inflections = ""
         translations = ""
+        images: list[str] = []
         spanish_el = soup.select_one("#Español")
         if spanish_el:
             parent_details = spanish_el.find_parents("details")[0]
             inflection_table_el = parent_details.select_one(".inflection-table")
             if inflection_table_el:
                 inflections = inflection_table_el.decode()
+            imgs = save_images(dictionary, parent_details)
+            images.extend(img.decode() for img in imgs)
+            strip_images(parent_details)
             for entry in parent_details.select("details"):
-                strip_images(entry)
                 summary_el = entry.find("summary")
                 translation_h = entry.select_one("#Traducciones")
                 possible_pos = ""
@@ -80,6 +83,5 @@ class SpanishParser(Parser):
             "<br>".join(pos),
             inflections,
             translations,
-            # TODO: images
-            "",
+            "".join(images),
         )

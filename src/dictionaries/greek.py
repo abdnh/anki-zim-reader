@@ -5,7 +5,7 @@ from typing import TYPE_CHECKING
 
 from zimply_core.zim_core import Article
 
-from .dictionary import DictEntry, ZIMDict, strip_images
+from .dictionary import DictEntry, ZIMDict, save_images, strip_images
 from .parser import Parser
 
 if TYPE_CHECKING:
@@ -129,6 +129,8 @@ class GreekParser(Parser):
         definitions: list[str] = []
         inflections = ""
         translations = ""
+        images: list[str] = []
+
         greek_el = None
         for lang_id in self.LANG_IDS:
             greek_el = soup.select_one(lang_id)
@@ -139,8 +141,10 @@ class GreekParser(Parser):
             inflection_table_el = parent_details.select_one("table")
             if inflection_table_el:
                 inflections = inflection_table_el.decode()
+            imgs = save_images(dictionary, parent_details)
+            images.extend(img.decode() for img in imgs)
+            strip_images(parent_details)
             for entry in parent_details.select("details"):
-                strip_images(entry)
                 summary_el = entry.find("summary")
                 translation_h = entry.select_one("#Μεταφράσεις")
                 if summary_el:
@@ -189,6 +193,5 @@ class GreekParser(Parser):
             "<br>".join(pos),
             inflections,
             translations,
-            # TODO: images
-            "",
+            "".join(images),
         )

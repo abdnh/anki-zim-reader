@@ -115,3 +115,14 @@ def get_first_element_child(element: Tag) -> Tag | None:
 def strip_images(element: Tag) -> None:
     for img in element.find_all("img"):
         img.decompose()
+
+
+def save_images(dictionary: ZIMDict, element: Tag) -> list[Tag]:
+    imgs = element.select(".thumbinner img")
+    for img in imgs:
+        src = img["src"]
+        filename = dictionary.save_resource(src)
+        if filename:
+            img.attrs.clear()
+            img["src"] = filename
+    return imgs

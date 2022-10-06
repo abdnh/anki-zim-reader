@@ -7,6 +7,7 @@ from .dictionary import (
     ZIMDict,
     get_first_element_child,
     get_next_sibling_element,
+    save_images,
 )
 from .parser import Parser
 
@@ -62,14 +63,8 @@ class GermanParser(Parser):
             if inflection_table:
                 inflections_list.append(inflection_table.decode())
 
-            imgs = entry.select(".thumbinner img")
-            for img in imgs:
-                src = img["src"]
-                filename = dictionary.save_resource(src)
-                if filename:
-                    img.attrs.clear()
-                    img["src"] = filename
-                    images_list.append(img.decode())
+            imgs = save_images(dictionary, entry)
+            images_list.extend(img.decode() for img in imgs)
 
         translations_table = german_details.select_one('[title*="Übersetzungen"]')
         if translations_table:
