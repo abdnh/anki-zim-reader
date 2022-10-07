@@ -2,5 +2,6 @@
     "name": "ZIM Reader",
     "package": "zim_reader",
     "homepage": "https://github.com/abdnh/anki-zim-reader",
-    "min_point_version": 46
+    "min_point_version": 46,
+    "ankiweb_id": "951350249"
 }
