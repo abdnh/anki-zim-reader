@@ -22,7 +22,7 @@ If you're a developer and want to contribute, please see [development.md](./deve
 
 ### Importing a ZIM file
 
-The dialog under _Tools > ZIM Reader > Import a file_ allows you to import a new ZIM file and make it available for use in the add-on. [This page](https://wiki.kiwix.org/wiki/Content_in_all_languages) has a lot of ZIM files available for download.
+The dialog under _Tools > ZIM Reader > Import a file_ allows you to import a new ZIM file and make it available for use in the add-on. [The Kiwix library](https://library.kiwix.org/) has a lot of ZIM files available for download.
 
 <img src="./images/import_dialog.png" width="600">
 
