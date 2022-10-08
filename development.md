@@ -12,7 +12,7 @@ The add-on is packaged using a [Makefile](./Makefile). To build the add-on and t
 2. Run `make zip` to produce `build/zim_reader.ankiaddon`. This will also generate the PyQt forms under [src/forms](./src/forms/).
 3. You can then either extract the zip to your add-ons folder or symlink the src folder.
 
-Alternatively, you can get bleeding-edge build of the add-on from the [Actions](https://github.com/abdnh/anki-zim-reader/actions?query=is%3Asuccess+event%3Apush+branch%3Amaster++) tab. Click the topmost commit with a green checkmark, then click "zim_reader" in the Artifacts section. You can rename the .zip extension to .ankiaddon and double click on the file to install it in Anki, or you can extract the zip into your addons21 folder.
+Alternatively, you can get bleeding-edge build of the add-on from the [Actions](https://github.com/abdnh/anki-zim-reader/actions?query=is%3Asuccess+event%3Apush+branch%3Amaster++) tab. Click the topmost commit with a green checkmark, then click "builds" in the Artifacts section. You'll get a zip that contains *multiple zip/ankiaddon files* for the different Anki versions we support.
 
 If you want to contribute some changes, also making sure to do the following is appreciated:
 

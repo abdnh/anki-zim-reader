@@ -3,10 +3,10 @@
 all: zip
 
 zip:
-	python -m ankibuild --type package --qt all --noconsts --forms-dir forms --exclude user_files/**/
+	python -m ankibuild --type package --qt all --noconsts --forms-dir forms --exclude user_files/**/ $(EXTRA_ARGS)
 
 ankiweb:
-	python -m ankibuild --type ankiweb --qt all --noconsts --forms-dir forms --exclude user_files/**/
+	python -m ankibuild --type ankiweb --qt all --noconsts --forms-dir forms --exclude user_files/**/ $(EXTRA_ARGS)
 
 check: check_format mypy pylint
 
@@ -33,9 +33,11 @@ ifeq ($(SPACY), true)
 else
 	SPACY_FLAG=""
 endif
+PY_VER := 39
 
 vendor:
-	./scripts/vendor.sh $(SPACY_FLAG)
+	./scripts/vendor_no_platform.sh $(SPACY_FLAG)
+	./scripts/vendor_pyzstd.sh $(PY_VER)
 
 clean:
 	rm -rf build/

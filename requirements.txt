@@ -8,7 +8,7 @@ black==22.6.0
 pylint==2.15.2
 isort==5.10.1
 ankibuild
-git+https://github.com/abdnh/ankibuild@6d5f33d5fb781cf889eb982b9999a5b2f2608659#egg=ankibuild[qt5,qt6]
+git+https://github.com/abdnh/ankibuild@5e346f5ddab5c783dfc35a16a1e8a5fdc7c7bed4#egg=ankibuild[qt5,qt6]
 zimply-core
 git+https://github.com/abdnh/zimply-core@09c6f0f004591e0642590210248e87ff72bb6e21
 spacy==3.4.1

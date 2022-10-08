@@ -1,9 +1,10 @@
 #!/bin/bash
 
-# TODO: handle all supported Python versions
-
 mkdir -p build
 cd build
+
+python_version=$1
+pyzstd_version=0.15.3
 
 platforms=(
     win_amd64
@@ -17,15 +18,15 @@ platforms=(
 
 # Download wheels
 for platform in ${platforms[@]}; do
-    echo $platform
-    pip download pyzstd==0.15.3 --only-binary=:all: --python-version 39 --implementation cp --platform $platform
+    pip download pyzstd==$pyzstd_version --only-binary=:all: --python-version $python_version --implementation cp --platform $platform
 done
 
 # Create a shared wheel from an arbitrary platform-specific wheel
-cp pyzstd-0.15.3-cp39-cp39-win_amd64.whl pyzstd.whl
+cp pyzstd-$pyzstd_version-cp$python_version-cp$python_version-${platforms[0]}.whl pyzstd.whl
 
 # Unzip wheels
-for wheel in *.whl; do
+wheels=(pyzstd-$pyzstd_version-cp$python_version-*.whl pyzstd.whl)
+for wheel in ${wheels[@]}; do
     mkdir -p "${wheel%.*}"
     pushd "${wheel%.*}"
     unzip -o ../$wheel
@@ -33,7 +34,7 @@ for wheel in *.whl; do
 done
 
 # Copy platform-specific library files to the shared wheel
-for dir in pyzstd-*/; do
+for dir in pyzstd-$pyzstd_version-cp$python_version-*/; do
     cp $dir/pyzstd/c/_zstd* pyzstd/pyzstd/c/
 done
 
