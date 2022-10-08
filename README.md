@@ -64,6 +64,10 @@ You can download the add-on from AnkiWeb: https://ankiweb.net/shared/info/951350
 
 Also see [development.md](./development.md#building-the-add-on) if you want to get the most recent version from the last commit.
 
+## Development
+
+See [development.md](./development.md) for docs that only interest developers and contributors.
+
 ## License
 
 GPLv3 or later. See [LICENSE](./LICENSE).
