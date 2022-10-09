@@ -9,7 +9,7 @@ def read(fname: str) -> str:
 
 setup(
     name="zim_reader",
-    version="0.0.1",
+    version="0.0.3",
     description="ZIM file reader for Anki",
     long_description=read("README.md"),
     author="Abdo",
