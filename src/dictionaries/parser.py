@@ -47,7 +47,10 @@ class Parser(ABC):
         # Return first search result, if any
         results = dictionary.zim_client.search(path, 0, 1)
         if results:
-            return get_article(results[0].url)
+            try:
+                return get_article(results[0].url)
+            except KeyError:
+                pass
         return None
 
     def get_article(
