@@ -30,53 +30,6 @@
       <string>Pop-up Dictionary</string>
      </property>
      <layout class="QGridLayout" name="gridLayout">
-      <item row="1" column="0" colspan="2">
-       <widget class="QLabel" name="label">
-        <property name="text">
-         <string>&amp;Dictionary</string>
-        </property>
-        <property name="buddy">
-         <cstring>popupDictionaryComboBox</cstring>
-        </property>
-       </widget>
-      </item>
-      <item row="5" column="0" colspan="6">
-       <widget class="QPushButton" name="saveButton">
-        <property name="text">
-         <string>Save</string>
-        </property>
-       </widget>
-      </item>
-      <item row="3" column="0" colspan="2">
-       <widget class="QLabel" name="label_3">
-        <property name="text">
-         <string>&amp;Shortcut</string>
-        </property>
-        <property name="buddy">
-         <cstring>popupShortcut</cstring>
-        </property>
-       </widget>
-      </item>
-      <item row="4" column="4">
-       <widget class="QSpinBox" name="popupHeightSpinBox">
-        <property name="maximum">
-         <number>9999</number>
-        </property>
-       </widget>
-      </item>
-      <item row="4" column="3">
-       <widget class="QLabel" name="label_5">
-        <property name="text">
-         <string>&amp;Height</string>
-        </property>
-        <property name="alignment">
-         <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
-        </property>
-        <property name="buddy">
-         <cstring>popupHeightSpinBox</cstring>
-        </property>
-       </widget>
-      </item>
       <item row="0" column="0" colspan="6">
        <widget class="QLabel" name="label_2">
         <property name="text">
@@ -84,22 +37,15 @@
         </property>
        </widget>
       </item>
-      <item row="4" column="2">
-       <widget class="QSpinBox" name="popupWidthSpinBox">
-        <property name="maximum">
-         <number>9999</number>
-        </property>
-       </widget>
-      </item>
       <item row="2" column="0">
        <widget class="QLabel" name="label_6">
         <property name="text">
-         <string>Parser</string>
+         <string>&amp;Parser</string>
+        </property>
+        <property name="buddy">
+         <cstring>parserComboBox</cstring>
         </property>
        </widget>
-      </item>
-      <item row="1" column="2" colspan="4">
-       <widget class="QComboBox" name="popupDictionaryComboBox"/>
       </item>
       <item row="4" column="1">
        <widget class="QLabel" name="label_4">
@@ -117,10 +63,102 @@
       <item row="3" column="2" colspan="4">
        <widget class="QKeySequenceEdit" name="popupShortcut"/>
       </item>
+      <item row="3" column="0" colspan="2">
+       <widget class="QLabel" name="label_3">
+        <property name="text">
+         <string>&amp;Shortcut</string>
+        </property>
+        <property name="buddy">
+         <cstring>popupShortcut</cstring>
+        </property>
+       </widget>
+      </item>
+      <item row="1" column="0" colspan="2">
+       <widget class="QLabel" name="label">
+        <property name="text">
+         <string>&amp;Dictionary</string>
+        </property>
+        <property name="buddy">
+         <cstring>popupDictionaryComboBox</cstring>
+        </property>
+       </widget>
+      </item>
+      <item row="4" column="3">
+       <widget class="QLabel" name="label_5">
+        <property name="text">
+         <string>&amp;Height</string>
+        </property>
+        <property name="alignment">
+         <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+        </property>
+        <property name="buddy">
+         <cstring>popupHeightSpinBox</cstring>
+        </property>
+       </widget>
+      </item>
+      <item row="4" column="2">
+       <widget class="QSpinBox" name="popupWidthSpinBox">
+        <property name="maximum">
+         <number>9999</number>
+        </property>
+       </widget>
+      </item>
+      <item row="1" column="2" colspan="4">
+       <widget class="QComboBox" name="popupDictionaryComboBox"/>
+      </item>
+      <item row="4" column="4">
+       <widget class="QSpinBox" name="popupHeightSpinBox">
+        <property name="maximum">
+         <number>9999</number>
+        </property>
+       </widget>
+      </item>
       <item row="2" column="2" colspan="4">
        <widget class="QComboBox" name="parserComboBox"/>
       </item>
      </layout>
+    </widget>
+   </item>
+   <item>
+    <widget class="QGroupBox" name="groupBox_2">
+     <property name="title">
+      <string>Misc</string>
+     </property>
+     <layout class="QFormLayout" name="formLayout">
+      <item row="0" column="0">
+       <widget class="QLabel" name="label_7">
+        <property name="text">
+         <string>&amp;Editor shortcut</string>
+        </property>
+        <property name="buddy">
+         <cstring>editorShortcut</cstring>
+        </property>
+       </widget>
+      </item>
+      <item row="1" column="0">
+       <widget class="QLabel" name="label_8">
+        <property name="text">
+         <string>&amp;Browser shortcut</string>
+        </property>
+        <property name="buddy">
+         <cstring>browserShortcut</cstring>
+        </property>
+       </widget>
+      </item>
+      <item row="0" column="1">
+       <widget class="QKeySequenceEdit" name="editorShortcut"/>
+      </item>
+      <item row="1" column="1">
+       <widget class="QKeySequenceEdit" name="browserShortcut"/>
+      </item>
+     </layout>
+    </widget>
+   </item>
+   <item>
+    <widget class="QPushButton" name="saveButton">
+     <property name="text">
+      <string>Save</string>
+     </property>
     </widget>
    </item>
   </layout>

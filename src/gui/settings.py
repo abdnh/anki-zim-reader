@@ -53,8 +53,12 @@ class SettingsDialog(QDialog):
         )
         self.form.popupWidthSpinBox.setValue(int(self.config["popup_width"]))
         self.form.popupHeightSpinBox.setValue(int(self.config["popup_height"]))
-
-        # TODO: make other shortcuts configurable from here too
+        self.form.editorShortcut.setKeySequence(
+            QKeySequence(self.config["editor_shortcut"])
+        )
+        self.form.browserShortcut.setKeySequence(
+            QKeySequence(self.config["browser_shortcut"])
+        )
 
     def on_save(self) -> None:
         popup_dictionary = self.form.popupDictionaryComboBox.currentText()
@@ -62,11 +66,15 @@ class SettingsDialog(QDialog):
         popup_shortcut = self.form.popupShortcut.keySequence().toString()
         popup_width = self.form.popupWidthSpinBox.value()
         popup_height = self.form.popupHeightSpinBox.value()
+        editor_shortcut = self.form.editorShortcut.keySequence().toString()
+        browser_shortcut = self.form.browserShortcut.keySequence().toString()
         self.config["popup_dictionary"] = popup_dictionary
         self.config["popup_parser"] = popup_parser
         self.config["popup_shortcut"] = popup_shortcut
         self.config["popup_width"] = popup_width
         self.config["popup_height"] = popup_height
+        self.config["editor_shortcut"] = editor_shortcut
+        self.config["browser_shortcut"] = browser_shortcut
 
         self.mw.addonManager.writeConfig(__name__, self.config)
         popup.restart_server()
