@@ -15,7 +15,7 @@ for python_version in ${python_versions[@]}; do
     make zip EXTRA_ARGS="--out build/zim_reader-py$python_version.ankiaddon"
     make ankiweb EXTRA_ARGS="--out build/zim_reader-py$python_version-ankiweb.ankiaddon"
     rm -rf build/pyzstd/
-    rm -rf src/vendor/pyzstd/
+    rm -rf src/vendor/pyzstd*
     rm -rf build/libzim/
-    rm -rf src/vendor/libzim/
+    rm -rf src/vendor/libzim*
 done
