@@ -38,6 +38,7 @@ PY_VER := 39
 vendor:
 	./scripts/vendor_no_platform.sh $(SPACY_FLAG)
 	./scripts/vendor_pyzstd.sh $(PY_VER)
+	./scripts/vendor_libzim.sh $(PY_VER)
 
 clean:
 	rm -rf build/

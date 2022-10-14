@@ -10,6 +10,7 @@ python_versions=(
 ./scripts/vendor_no_platform.sh
 for python_version in ${python_versions[@]}; do
     ./scripts/vendor_pyzstd.sh $python_version
+    ./scripts/vendor_libzim.sh $python_version
     # FIXME: min_point_version in manifest.json should depend on the Python version
     make zip EXTRA_ARGS="--out build/zim_reader-py$python_version.ankiaddon"
     make ankiweb EXTRA_ARGS="--out build/zim_reader-py$python_version-ankiweb.ankiaddon"

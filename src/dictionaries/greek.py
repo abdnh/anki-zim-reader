@@ -3,8 +3,7 @@ from __future__ import annotations
 import re
 from typing import TYPE_CHECKING
 
-from zimply_core.zim_core import Article
-
+from ..client import ZIMItem
 from .dictionary import DictEntry, ZIMDict, save_images, strip_images
 from .parser import Parser
 
@@ -87,14 +86,14 @@ class GreekParser(Parser):
         )
     )
 
-    def get_article(
-        self, query: str, dictionary: ZIMDict, is_title: bool = False
-    ) -> Article | None:
-        article = super().get_article(query, dictionary, is_title)
-        if article:
-            return article
+    def get_item(
+        self, path: str, dictionary: ZIMDict, is_title: bool = False
+    ) -> ZIMItem | None:
+        item = super().get_item(path, dictionary, is_title)
+        if item:
+            return item
         if self.nlp:
-            return super().get_article(self._stem(query), dictionary, is_title)
+            return super().get_item(self._stem(path), dictionary, is_title)
         return None
 
     def follow_redirects(self, query: str, dictionary: ZIMDict) -> str:

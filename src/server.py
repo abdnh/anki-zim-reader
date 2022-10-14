@@ -66,9 +66,9 @@ def create_server(
 
     @app.route("/")
     def index() -> Response:
-        article = zim_server.dictionary.zim_client.main_page
-        response = flask.make_response(article.data, HTTPStatus.OK)
-        response.headers["Content-Type"] = article.mimetype
+        item = zim_server.dictionary.client.main_page()
+        response = flask.make_response(item.content, HTTPStatus.OK)
+        response.headers["Content-Type"] = item.mimetype
         return response
 
     @app.route("/<path:path>")
@@ -78,19 +78,13 @@ def create_server(
                 path = parser.follow_redirects(path, zim_server.dictionary)
             except:
                 pass
-        try:
-            article = zim_server.dictionary.get_article(path)
-            if not article:
-                *_, word = path.rsplit("/", maxsplit=1)
-                results = zim_server.dictionary.zim_client.search(word, 0, 1)
-                if results:
-                    article = zim_server.dictionary.get_article(results[0].url)
-        except:
-            # FIXME: swallow random unpacking errors for now until issue #3 is fixed
-            return flask.make_response("Internal server error", HTTPStatus.NOT_FOUND)
-        if article:
-            response = flask.make_response(article.data, HTTPStatus.OK)
-            response.headers["Content-Type"] = article.mimetype
+        item = zim_server.dictionary.get_item(path)
+        if not item:
+            *_, word = path.rsplit("/", maxsplit=1)
+            item = zim_server.dictionary.client.first_result(word)
+        if item:
+            response = flask.make_response(item.content, HTTPStatus.OK)
+            response.headers["Content-Type"] = item.mimetype
             return response
         return flask.make_response(f"{path} not found", HTTPStatus.NOT_FOUND)
 

@@ -9,8 +9,8 @@ from typing import TYPE_CHECKING
 
 from bs4 import BeautifulSoup
 from bs4.element import NavigableString, Tag
-from zimply_core.zim_core import Article, ZIMClient
 
+from ..client import ZIMItem, init_client
 from ..consts import USER_FILES
 from ..errors import ZIMReaderException
 from .parser import DefaultParser
@@ -37,12 +37,7 @@ class ZIMDict:
         zim_path = next(folder_path.glob("*.zim"), None)
         if not zim_path:
             raise ZIMReaderException(f"No zim file was found in {str(name)}")
-        self.zim_client = ZIMClient(
-            zim_path,
-            encoding="utf-8",
-            auto_delete=True,
-            enable_search=True,
-        )
+        self.client = init_client(zim_path)
         self.parser = parser
 
     @classmethod
@@ -55,7 +50,6 @@ class ZIMDict:
         output_folder = USER_FILES / name
         output_folder.mkdir(exist_ok=True)
         shutil.copy(filename, output_folder)
-        # Build search index
         ZIMDict(name)
 
     @staticmethod
@@ -63,10 +57,10 @@ class ZIMDict:
     def _get_soup(
         title: str, dictionary: ZIMDict, parser: Parser
     ) -> BeautifulSoup | None:
-        article = parser.get_article(title, dictionary, is_title=True)
+        item = parser.get_item(title, dictionary, is_title=True)
         soup = None
-        if article:
-            soup = BeautifulSoup(article.data.decode(), "html.parser")
+        if item:
+            soup = BeautifulSoup(item.content.decode(), "html.parser")
         return soup
 
     def get_soup(self, title: str) -> BeautifulSoup | None:
@@ -77,20 +71,20 @@ class ZIMDict:
             return None
         return self.parser.lookup(title, self)
 
-    def get_article(self, path: str) -> Article | None:
-        return self.parser.get_article(path, self)
+    def get_item(self, path: str) -> ZIMItem | None:
+        return self.parser.get_item(path, self)
 
     def save_resource(self, path: str) -> str | None:
         # Strip out '../'
         path = path.split("/", maxsplit=1)[-1]
         path = urllib.parse.unquote(path)
         try:
-            article = self.zim_client.get_article(path)
+            item = self.client.get_item_by_path(path)
         except KeyError:
             return None
         filename = path.split("/")[-1]
         assert self.parser.col
-        return self.parser.col.media.write_data(filename, article.data)
+        return self.parser.col.media.write_data(filename, item.content)
 
 
 def get_next_sibling_element(element: Tag) -> Tag | None:

@@ -7,7 +7,7 @@ import string
 from abc import ABC, abstractmethod
 from typing import TYPE_CHECKING
 
-from zimply_core.zim_core import Article
+from ..client import ZIMItem
 
 if TYPE_CHECKING:
     from anki.collection import Collection
@@ -23,15 +23,15 @@ class Parser(ABC):
 
     @staticmethod
     @functools.lru_cache
-    def _get_article(
+    def _get_item(
         path: str,
         dictionary: ZIMDict,
         is_title: bool,
-    ) -> Article | None:
-        get_article = (
-            dictionary.zim_client.get_article_by_title
+    ) -> ZIMItem | None:
+        get_item = (
+            dictionary.client.get_item_by_title
             if is_title
-            else dictionary.zim_client.get_article
+            else dictionary.client.get_item_by_path
         )
         nopunct = path.strip(string.punctuation).strip()
         if is_title:
@@ -40,23 +40,16 @@ class Parser(ABC):
             forms = [path, path, path.lower(), path.title(), path.upper()]
         for form in forms:
             try:
-                article = get_article(form)
-                return article
+                item = get_item(form)
+                return item
             except KeyError:
                 pass
-        # Return first search result, if any
-        results = dictionary.zim_client.search(path, 0, 1)
-        if results:
-            try:
-                return get_article(results[0].url)
-            except KeyError:
-                pass
-        return None
+        return dictionary.client.first_result(path)
 
-    def get_article(
+    def get_item(
         self, path: str, dictionary: ZIMDict, is_title: bool = False
-    ) -> Article | None:
-        return self._get_article(path, dictionary, is_title)
+    ) -> ZIMItem | None:
+        return self._get_item(path, dictionary, is_title)
 
     @abstractmethod
     def lookup(self, query: str, dictionary: ZIMDict) -> DictEntry | None:

@@ -8,9 +8,9 @@ pyzstd_version=0.15.3
 
 platforms=(
     win_amd64
-    manylinux2014_x86_64
-    manylinux2014_aarch64
-    macosx_10_9_x86_64
+    # manylinux2014_x86_64
+    # manylinux2014_aarch64
+    # macosx_10_9_x86_64
     # FIXME: the arm64 shared library has the same name as the x86_64 one (_zstd.cpython-39-darwin.so)
     # How to handle such situation?
     # macosx_11_0_arm64
