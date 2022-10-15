@@ -56,8 +56,8 @@ class GermanParser(Parser):
             pos_list.append(pos_gender_h.get_text().split(",")[0])
             gender_el = pos_gender_h.select_one("em")
             if gender_el:
-                if m := re.match(r"Genus: (.*)", gender_el["title"]):
-                    gender_list.append(m.group(1))
+                if re.match(r"Genus: (.*)", gender_el["title"]):
+                    gender_list.append(gender_el.get_text())
 
             inflection_table = entry.select_one(".inflection-table")
             if inflection_table:
