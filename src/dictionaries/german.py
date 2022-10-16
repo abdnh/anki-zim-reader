@@ -54,8 +54,8 @@ class GermanParser(Parser):
 
             pos_gender_h = get_first_element_child(entry).select_one("h3")
             pos_list.append(pos_gender_h.get_text().split(",")[0])
-            gender_el = pos_gender_h.select_one("em")
-            if gender_el:
+            gender_els = pos_gender_h.select("em")
+            for gender_el in gender_els:
                 if re.match(r"Genus: (.*)", gender_el["title"]):
                     gender_list.append(gender_el.get_text())
 
@@ -74,7 +74,7 @@ class GermanParser(Parser):
             query,
             definitions,
             examples,
-            "<br>".join(gender_list),
+            " ".join(gender_list),
             "<br>".join(pos_list),
             "<br>".join(inflections_list),
             "<br>".join(translations_list),
