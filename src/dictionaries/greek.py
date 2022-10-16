@@ -137,9 +137,13 @@ class GreekParser(Parser):
                 break
         if greek_el:
             parent_details = greek_el.find_parents("details")[0]
-            inflection_table_el = parent_details.select_one("table")
-            if inflection_table_el:
-                inflections = inflection_table_el.decode()
+            inflections_h = parent_details.select_one("#Κλίση")
+            if inflections_h:
+                inflection_table = inflections_h.find_parents("details")[0].select_one(
+                    "table"
+                )
+                if inflection_table:
+                    inflections = inflection_table.decode()
             imgs = save_images(dictionary, parent_details)
             images.extend(img.decode() for img in imgs)
             strip_images(parent_details)
