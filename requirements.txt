@@ -12,4 +12,3 @@ git+https://github.com/abdnh/ankibuild@5e346f5ddab5c783dfc35a16a1e8a5fdc7c7bed4#
 libzim==2.0.0; sys.platform != "win32"
 zimply-core
 git+https://github.com/abdnh/zimply-core@09c6f0f004591e0642590210248e87ff72bb6e21
-spacy==3.4.1

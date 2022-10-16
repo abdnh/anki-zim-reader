@@ -27,16 +27,10 @@ pylint:
 test:
 	python -m unittest
 
-SPACY := false
-ifeq ($(SPACY), true)
-	SPACY_FLAG=-s
-else
-	SPACY_FLAG=""
-endif
 PY_VER := 39
 
 vendor:
-	./scripts/vendor_no_platform.sh $(SPACY_FLAG)
+	./scripts/vendor_no_platform.sh
 	./scripts/vendor_pyzstd.sh $(PY_VER)
 	./scripts/vendor_libzim.sh $(PY_VER)
 

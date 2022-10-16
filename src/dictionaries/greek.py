@@ -1,15 +1,9 @@
 from __future__ import annotations
 
 import re
-from typing import TYPE_CHECKING
 
-from ..client import ZIMItem
 from .dictionary import DictEntry, ZIMDict, save_images, strip_images
 from .parser import Parser
-
-if TYPE_CHECKING:
-    from anki.collection import Collection
-    from spacy.language import Language
 
 
 class GreekParser(Parser):
@@ -19,23 +13,6 @@ class GreekParser(Parser):
     """
 
     name = "Greek"
-
-    def __init__(self, col: Collection | None = None) -> None:
-        super().__init__(col)
-        self.nlp: Language | None = None
-        try:
-            import spacy
-
-            self.nlp = spacy.load("el_core_news_sm")
-        except:
-            pass
-
-    def _stem(self, word: str) -> str:
-        doc = self.nlp(word)
-        lemmas = []
-        for token in doc:
-            lemmas.append(token.lemma_)
-        return " ".join(lemmas)
 
     # HTML IDs one of which is assumed to exist in the queried page
     LANG_IDS = (
@@ -85,16 +62,6 @@ class GreekParser(Parser):
             (r"το.*?αποτέλεσμα.*?του\s+(.*)", True),
         )
     )
-
-    def get_item(
-        self, path: str, dictionary: ZIMDict, is_title: bool = False
-    ) -> ZIMItem | None:
-        item = super().get_item(path, dictionary, is_title)
-        if item:
-            return item
-        if self.nlp:
-            return super().get_item(self._stem(path), dictionary, is_title)
-        return None
 
     def follow_redirects(self, query: str, dictionary: ZIMDict) -> str:
         soup = dictionary.get_soup(query)
