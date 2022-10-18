@@ -1,16 +1,20 @@
+# Python
 __pycache__/
 *.pyc
 venv/
 *.egg-info/
 node_modules/
 
+# Anki
 build/
 src/user_files/*/
 ankidata/
 vendor/
 src/meta.json
+src/manifest.json
 src/forms/
 
+# General
 TODO.md
 samples/
 tmp/
