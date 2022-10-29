@@ -264,10 +264,14 @@ class ZIMFetcherDialog(QDialog):
         return formatted
 
     def _get_examples(self, entry: DictEntry) -> str:
-        field_contents = []
+        if len(entry.examples) == 1:
+            return entry.examples[0]
+        formatted = "<ul>"
         for example in entry.examples:
-            field_contents.append(example)
-        return "<br>".join(field_contents)
+            formatted += f"<li>{example}</li>"
+        formatted += "</ul>"
+        return formatted
+
 
     def _get_gender(self, entry: DictEntry) -> str:
         return entry.gender
