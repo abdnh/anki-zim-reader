@@ -7,11 +7,12 @@ This is a fork of the [Wiktionary](https://github.com/abdnh/anki-wiktionary) add
 
 ## Supported dictionaries
 
-Currently supported dictionaries are the following:
+Currently supported Wiktionary versions are the following:
 
-- Greek Wiktionary
-- Spanish Wiktionary
-- German Wiktionary
+- Greek
+- Spanish
+- German
+- Turkish
 
 We try to support the ZIM files provided by the [Kiwix](https://www.kiwix.org/) team at https://wiki.kiwix.org/wiki/Content_in_all_languages
 
