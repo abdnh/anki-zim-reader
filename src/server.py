@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import os
 import threading
 from http import HTTPStatus
 
@@ -23,11 +24,11 @@ class ZIMServer(threading.Thread):
 
     def run(self) -> None:
         try:
+            port = int(os.getenv("ZIM_SERVER_PORT", "0"))
             self.server = create_waitress_server(
                 self.app,
                 host="127.0.0.1",
-                # port="8000",
-                port="0",
+                port=port,
                 clear_untrusted_proxy_headers=True,
                 threads=1,
             )
