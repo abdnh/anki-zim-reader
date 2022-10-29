@@ -9,12 +9,14 @@ from .german import GermanParser
 from .greek import GreekParser
 from .parser import DefaultParser, Parser
 from .spanish import SpanishParser
+from .turkish import TurkishParser
 
 PARSER_CLASSES: list[Type[Parser]] = [
     DefaultParser,
     GreekParser,
     SpanishParser,
     GermanParser,
+    TurkishParser,
 ]
 
 
