@@ -255,6 +255,8 @@ class ZIMFetcherDialog(QDialog):
         self.mw.taskman.run_on_main(self.mw.progress.finish)
 
     def _get_definitions(self, entry: DictEntry) -> str:
+        if not entry.definitions:
+            return ""
         if len(entry.definitions) == 1:
             return entry.definitions[0]
         formatted = "<ul>"
@@ -264,6 +266,8 @@ class ZIMFetcherDialog(QDialog):
         return formatted
 
     def _get_examples(self, entry: DictEntry) -> str:
+        if not entry.examples:
+            return ""
         if len(entry.examples) == 1:
             return entry.examples[0]
         formatted = "<ul>"
