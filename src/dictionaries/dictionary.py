@@ -93,6 +93,7 @@ class ZIMDict:
             return self.parser.col.media.write_data(filename, item.content)
         return None
 
+
 def get_next_sibling_element(element: Tag) -> Tag | None:
     sibling = element.next_sibling
     while isinstance(sibling, NavigableString):
