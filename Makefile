@@ -24,8 +24,15 @@ mypy:
 pylint:
 	python -m pylint src tests
 
-test:
-	python -m unittest
+samples/%.zim:
+	mkdir -p samples
+	curl -L https://download.kiwix.org/zim/$(notdir $@) -o $@
+
+# TODO: download other supported files
+download-test-data: samples/wiktionary_el_all_maxi.zim
+
+test: download-test-data
+	python -m pytest tests
 
 PY_VER := 39
 

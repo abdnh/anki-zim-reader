@@ -7,6 +7,7 @@ mypy==0.971
 black==22.6.0
 pylint==2.15.2
 isort==5.10.1
+pytest==7.2.0
 ankibuild @ git+https://github.com/abdnh/ankibuild@d986a15c247981eccad651dd7f769331ea1092ea#egg=ankibuild[qt5,qt6]
 libzim==2.0.0; sys.platform != "win32"
 zimply-core @ git+https://github.com/abdnh/zimply-core@09c6f0f004591e0642590210248e87ff72bb6e21

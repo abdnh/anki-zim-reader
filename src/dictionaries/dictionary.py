@@ -32,8 +32,13 @@ class DictEntry:
 
 
 class ZIMDict:
-    def __init__(self, name: str, parser: Parser = DefaultParser()):
-        folder_path = USER_FILES / name
+    def __init__(
+        self,
+        name: str,
+        parser: Parser = DefaultParser(),
+        base_dir: Path | str = USER_FILES,
+    ):
+        folder_path = Path(base_dir) / name
         zim_path = next(folder_path.glob("*.zim"), None)
         if not zim_path:
             raise ZIMReaderException(f"No zim file was found in {str(name)}")
@@ -43,14 +48,15 @@ class ZIMDict:
     @classmethod
     def build_dict(
         cls,
-        filename: str | Path,
+        filename: Path | str,
         name: str,
+        base_dir: Path | str = USER_FILES,
     ) -> None:
         # Copy input zim file to the output folder
-        output_folder = USER_FILES / name
+        output_folder = Path(base_dir) / name
         output_folder.mkdir(exist_ok=True)
         shutil.copy(filename, output_folder)
-        ZIMDict(name)
+        ZIMDict(name, base_dir=base_dir)
 
     @staticmethod
     @functools.lru_cache
@@ -83,9 +89,9 @@ class ZIMDict:
         except KeyError:
             return None
         filename = path.split("/")[-1]
-        assert self.parser.col
-        return self.parser.col.media.write_data(filename, item.content)
-
+        if self.parser.col:
+            return self.parser.col.media.write_data(filename, item.content)
+        return None
 
 def get_next_sibling_element(element: Tag) -> Tag | None:
     sibling = element.next_sibling

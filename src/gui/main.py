@@ -276,7 +276,6 @@ class ZIMFetcherDialog(QDialog):
         formatted += "</ul>"
         return formatted
 
-
     def _get_gender(self, entry: DictEntry) -> str:
         return entry.gender
 
