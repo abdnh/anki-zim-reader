@@ -154,7 +154,9 @@ class ZIMFetcherDialog(QDialog):
             )
             return
         parser = PARSER_CLASSES[self.form.parserComboBox.currentIndex()](self.mw.col)
-        self.dictionary = ZIMDict(self.form.fileComboBox.currentText(), parser)
+        self.dictionary = ZIMDict.from_basedir(
+            self.form.fileComboBox.currentText(), parser
+        )
         skip_non_empty = self.form.skipNonEmptyCheckBox.isChecked()
         word_field = self.form.wordFieldComboBox.currentText()
         definition_field_i = self.form.definitionFieldComboBox.currentIndex()

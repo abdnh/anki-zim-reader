@@ -34,16 +34,25 @@ class DictEntry:
 class ZIMDict:
     def __init__(
         self,
+        path: Path,
+        parser: Parser = DefaultParser(),
+    ):
+        self.path = path
+        self.client = init_client(path)
+        self.parser = parser
+
+    @classmethod
+    def from_basedir(
+        cls,
         name: str,
         parser: Parser = DefaultParser(),
         base_dir: Path | str = USER_FILES,
-    ):
+    ) -> ZIMDict:
         folder_path = Path(base_dir) / name
         zim_path = next(folder_path.glob("*.zim"), None)
         if not zim_path:
             raise ZIMReaderException(f"No zim file was found in {str(name)}")
-        self.client = init_client(zim_path)
-        self.parser = parser
+        return ZIMDict(zim_path, parser)
 
     @classmethod
     def build_dict(
@@ -56,7 +65,7 @@ class ZIMDict:
         output_folder = Path(base_dir) / name
         output_folder.mkdir(exist_ok=True)
         shutil.copy(filename, output_folder)
-        ZIMDict(name, base_dir=base_dir)
+        ZIMDict.from_basedir(name, base_dir=base_dir)
 
     @staticmethod
     @functools.lru_cache

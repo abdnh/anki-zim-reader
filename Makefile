@@ -1,4 +1,4 @@
-.PHONY: all zip clean check check_format fix mypy pylint ankiweb test vendor
+.PHONY: all zip clean check check_format fix mypy pylint ankiweb test vendor serve
 
 all: zip
 
@@ -40,6 +40,9 @@ vendor:
 	./scripts/vendor_no_platform.sh
 	./scripts/vendor_pyzstd.sh $(PY_VER)
 	./scripts/vendor_libzim.sh $(PY_VER)
+
+serve:
+	python -m src serve $(FILE)
 
 clean:
 	rm -rf build/

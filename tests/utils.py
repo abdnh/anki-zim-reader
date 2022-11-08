@@ -12,7 +12,7 @@ class DictTester:
         self.base_dir = base_dir = tempfile.mkdtemp()
         print(base_dir)
         ZIMDict.build_dict(f"samples/{name}.zim", name, base_dir)
-        self.dictionary = ZIMDict(name, parser, base_dir)
+        self.dictionary = ZIMDict.from_basedir(name, parser, base_dir)
 
     def __enter__(self) -> ZIMDict:
         return self.dictionary
