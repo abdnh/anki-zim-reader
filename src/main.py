@@ -22,6 +22,7 @@ sys.path.append(str(consts.ADDON_DIR / "vendor"))
 # pylint: disable=wrong-import-position
 from . import popup
 from .gui import qconnect
+from .gui.browser import BrowserDialog
 from .gui.importer import ImportDialog
 from .gui.main import ZIMFetcherDialog
 from .gui.settings import SettingsDialog
@@ -110,6 +111,11 @@ def on_settings() -> None:
     dialog.exec()
 
 
+def on_browser() -> None:
+    dialog = BrowserDialog(mw)
+    dialog.show()
+
+
 def add_menu() -> None:
     menu = QMenu(consts.ADDON_NAME, mw)
     action = QAction(menu)
@@ -120,6 +126,11 @@ def add_menu() -> None:
     action = QAction(menu)
     action.setText("Settings")
     qconnect(action.triggered, on_settings)
+    menu.addAction(action)
+
+    action = QAction(menu)
+    action.setText("Browser")
+    qconnect(action.triggered, on_browser)
     menu.addAction(action)
 
     mw.form.menuTools.addMenu(menu)
