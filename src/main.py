@@ -124,13 +124,13 @@ def add_menu() -> None:
     menu.addAction(action)
 
     action = QAction(menu)
-    action.setText("Settings")
-    qconnect(action.triggered, on_settings)
+    action.setText("Browser")
+    qconnect(action.triggered, on_browser)
     menu.addAction(action)
 
     action = QAction(menu)
-    action.setText("Browser")
-    qconnect(action.triggered, on_browser)
+    action.setText("Settings")
+    qconnect(action.triggered, on_settings)
     menu.addAction(action)
 
     mw.form.menuTools.addMenu(menu)
