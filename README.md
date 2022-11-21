@@ -51,6 +51,12 @@ You can configure the ZIM file used for the pop-up feature and some other settin
 
 <img src="./images/popup.png" width="600">
 
+### Browser
+
+You can browse the contents of imported ZIM files from the window under _Tools > ZIM Reader > Browser_.
+
+<img src="./images/browser.png" width="600">
+
 ### Settings
 
 You can configure some settings of the add-on from _Tools > ZIM Reader > Settings_.
@@ -76,6 +82,7 @@ GPLv3 or later. See [LICENSE](./LICENSE).
 ## Credit
 
 - The logo is adapted from the [Kiwix logo](https://en.wikipedia.org/wiki/File:Kiwix_logo_v3.svg) (licensed under the [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0/deed.en)) and the Anki logo from the [Papirus icon theme](https://github.com/PapirusDevelopmentTeam/papirus-icon-theme) (licensed under the [GPLv3](https://github.com/PapirusDevelopmentTeam/papirus-icon-theme/blob/master/LICENSE)).
+- Some icons are adapted from [Bootstrap Icons](https://icons.getbootstrap.com/) (licensed under the [MIT](https://github.com/twbs/icons/blob/main/LICENSE.md)).
 
 ## Support
 

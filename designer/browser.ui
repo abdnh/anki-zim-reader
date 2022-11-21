@@ -6,22 +6,22 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>531</width>
-    <height>414</height>
+    <width>740</width>
+    <height>540</height>
    </rect>
   </property>
   <property name="windowTitle">
    <string>Dialog</string>
   </property>
   <layout class="QGridLayout" name="gridLayout">
-   <item row="11" column="0">
-    <widget class="QLabel" name="label_2">
-     <property name="text">
-      <string>Parser</string>
+   <item row="0" column="2">
+    <widget class="QLineEdit" name="address_bar">
+     <property name="readOnly">
+      <bool>true</bool>
      </property>
     </widget>
    </item>
-   <item row="13" column="0" colspan="2">
+   <item row="14" column="0" colspan="3">
     <widget class="QLineEdit" name="search_edit">
      <property name="styleSheet">
       <string notr="true"/>
@@ -31,32 +31,65 @@
      </property>
     </widget>
    </item>
-   <item row="10" column="1">
-    <widget class="QComboBox" name="file"/>
+   <item row="15" column="0" colspan="3">
+    <widget class="QPushButton" name="search_button">
+     <property name="text">
+      <string>Search</string>
+     </property>
+     <property name="default">
+      <bool>true</bool>
+     </property>
+    </widget>
    </item>
-   <item row="12" column="0" colspan="2">
+   <item row="12" column="0">
+    <widget class="QLabel" name="label_2">
+     <property name="text">
+      <string>Parser</string>
+     </property>
+    </widget>
+   </item>
+   <item row="13" column="0" colspan="3">
     <widget class="QRadioButton" name="follow_redirects">
      <property name="text">
       <string>Follow redirects</string>
      </property>
     </widget>
    </item>
-   <item row="10" column="0">
+   <item row="12" column="1" colspan="2">
+    <widget class="QComboBox" name="parser"/>
+   </item>
+   <item row="11" column="0">
     <widget class="QLabel" name="label">
      <property name="text">
       <string>Dictionary</string>
      </property>
     </widget>
    </item>
-   <item row="11" column="1">
-    <widget class="QComboBox" name="parser"/>
+   <item row="11" column="1" colspan="2">
+    <widget class="QComboBox" name="file"/>
    </item>
-   <item row="14" column="0" colspan="2">
-    <widget class="QPushButton" name="search_button">
-     <property name="text">
-      <string>Search</string>
+   <item row="0" column="0">
+    <widget class="QPushButton" name="back">
+     <property name="cursor">
+      <cursorShape>PointingHandCursor</cursorShape>
      </property>
-     <property name="default">
+     <property name="text">
+      <string/>
+     </property>
+     <property name="flat">
+      <bool>true</bool>
+     </property>
+    </widget>
+   </item>
+   <item row="0" column="1">
+    <widget class="QPushButton" name="forward">
+     <property name="cursor">
+      <cursorShape>PointingHandCursor</cursorShape>
+     </property>
+     <property name="text">
+      <string/>
+     </property>
+     <property name="flat">
       <bool>true</bool>
      </property>
     </widget>

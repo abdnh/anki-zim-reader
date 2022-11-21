@@ -5,7 +5,7 @@ import time
 
 from aqt import qtmajor
 from aqt.main import AnkiQt
-from aqt.qt import QDialog, QIcon, QShortcut, Qt, QUrl, QVBoxLayout, QWidget
+from aqt.qt import QDialog, QIcon, QShortcut, QSize, Qt, QUrl, QVBoxLayout, QWidget
 from aqt.webview import AnkiWebView
 
 from .. import consts, dictionaries
@@ -16,8 +16,6 @@ if qtmajor <= 5:
     from ..forms.browser_qt5 import Ui_Dialog
 else:
     from ..forms.browser_qt6 import Ui_Dialog  # type: ignore
-
-# TODO: add navigation controls like back and forward buttons
 
 
 class BrowserDialog(QDialog):
@@ -40,14 +38,20 @@ class BrowserDialog(QDialog):
         icon = QIcon(os.path.join(consts.ICONS_DIR, "logo.svg"))
         self.setWindowIcon(icon)
 
+        qconnect(self.form.back.clicked, lambda: self.webview.page().history().back())
+        qconnect(
+            self.form.forward.clicked, lambda: self.webview.page().history().forward()
+        )
+
         # Wrap webview in a widget to be able to add a border
         widget = QWidget(self)
         widget.setLayout(QVBoxLayout())
         widget.setStyleSheet("border: 1px solid grey;")
         self.webview = webview = AnkiWebView(self, "ZIM Reader Browser")
+        qconnect(webview.urlChanged, self.on_url_changed)
         widget.layout().addWidget(webview)
         webview.set_open_links_externally(False)
-        self.form.gridLayout.addWidget(widget, 0, 0, 10, 2)
+        self.form.gridLayout.addWidget(widget, 1, 0, 10, 3)
 
         qconnect(self.finished, self.on_finished)
         qconnect(
@@ -87,7 +91,9 @@ class BrowserDialog(QDialog):
         # FIXME: this should not be necessary as .url will block until the server is initialized
         # but I'm getting an AttributeError here nevertheless for some weird reason
         time.sleep(0.01)
+        self.webview.page().history().clear()
         self.webview.load_url(QUrl(self.server.url))
+        self.form.address_bar.setText(self.server.url)
 
     def on_parser_changed(self, index: int) -> None:
         if not self.server:
@@ -99,6 +105,20 @@ class BrowserDialog(QDialog):
         search = self.form.search_edit.text()
         url = self.server.url + search
         self.webview.load_url(QUrl(url))
+        self.form.address_bar.setText(url)
+
+    def on_url_changed(self, url: QUrl) -> None:
+        if self.webview.page().history().canGoBack():
+            back_icon = "back.svg"
+        else:
+            back_icon = "back-disabled.svg"
+        if self.webview.page().history().canGoForward():
+            forward_icon = "forward.svg"
+        else:
+            forward_icon = "forward-disabled.svg"
+        self.form.back.setIcon(QIcon(str(consts.ICONS_DIR / back_icon)))
+        self.form.forward.setIcon(QIcon(str(consts.ICONS_DIR / forward_icon)))
+        self.form.address_bar.setText(url.toString())
 
     def on_finished(self) -> None:
         if self.server:
