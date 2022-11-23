@@ -69,8 +69,6 @@ For the parser option, if your chosen dictionary file doesn't have a dedicated p
 
 You can download the add-on from AnkiWeb: https://ankiweb.net/shared/info/951350249
 
-Also see [development.md](./development.md#building-the-add-on) if you want to get the most recent version from the last commit.
-
 ## Development
 
 See [development.md](./development.md) for docs that only interest developers and contributors.

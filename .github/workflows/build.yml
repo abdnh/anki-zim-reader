@@ -1,28 +1,35 @@
-name: Build add-on
+name: Build release
 
 on:
   push:
-    branches:
-      - master
-      - test
+    tags:
+      - '*'
+    # branches:
+    #   - master
+    #   - test
 
 jobs:
   build:
+    name: Release ${{github.ref_name}}
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
+      - name: Checkout
+        uses: actions/checkout@v3
 
-      - uses: actions/setup-python@v4
+      - name: Set up Python
+        uses: actions/setup-python@v4
         with:
           python-version: '3.9'
-      - uses: actions/setup-node@v3
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v3
         with:
           node-version: 16
+
       - name: Build
         run: .github/workflows/build.sh
 
-      - name: Upload build artifacts
-        uses: actions/upload-artifact@v3
+      - name: Release
+        uses: softprops/action-gh-release@v1
         with:
-          name: builds
-          path: build/*.ankiaddon
+          files: build/*.ankiaddon
