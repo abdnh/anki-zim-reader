@@ -73,6 +73,10 @@ You can download the add-on from AnkiWeb: https://ankiweb.net/shared/info/951350
 
 See [development.md](./development.md) for docs that only interest developers and contributors.
 
+## Changelog
+
+See [CHANGELOG.md](./CHANGELOG.md) for a list of changes.
+
 ## License
 
 GPLv3 or later. See [LICENSE](./LICENSE).
