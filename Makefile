@@ -42,7 +42,7 @@ vendor:
 	./scripts/vendor_libzim.sh $(PY_VER)
 
 serve:
-	python -m src serve $(FILE)
+	python -m src $(FILE)
 
 clean:
 	rm -rf build/
