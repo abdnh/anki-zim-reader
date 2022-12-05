@@ -86,10 +86,6 @@ GPLv3 or later. See [LICENSE](./LICENSE).
 - The logo is adapted from the [Kiwix logo](https://en.wikipedia.org/wiki/File:Kiwix_logo_v3.svg) (licensed under the [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0/deed.en)) and the Anki logo from the [Papirus icon theme](https://github.com/PapirusDevelopmentTeam/papirus-icon-theme) (licensed under the [GPLv3](https://github.com/PapirusDevelopmentTeam/papirus-icon-theme/blob/master/LICENSE)).
 - Some icons are adapted from [Bootstrap Icons](https://icons.getbootstrap.com/) (licensed under the [MIT](https://github.com/twbs/icons/blob/main/LICENSE.md)).
 
-## Support
-
-This add-on is experimental. I appreciate bug reports and suggestions. Please use the issue tracker on [GitHub](https://github.com/abdnh/anki-zim-reader/issues) or post in the [this Anki Forums thread](https://forums.ankiweb.net/t/zim-reader-for-anki/23669).
-
 ## Support & feature requests
 
 Please post any questions, bug reports, or feature requests in the [support page](https://forums.ankiweb.net/t/zim-reader-for-anki/23669) or the [issue tracker](https://github.com/abdnh/anki-zim-reader/issues).
