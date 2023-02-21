@@ -26,8 +26,8 @@ class TurkishParser(Parser):
         pos_list = []
         inflection_tables = []
         translations = ""
-
         images = [img.decode() for img in save_images(dictionary, turkish_details)]
+        ipa = []
 
         entries = turkish_details.select('details[data-level="3"]')
         # Some entries have data-level="4", and we detect them using the "headword" class
@@ -57,6 +57,8 @@ class TurkishParser(Parser):
         if translation_el:
             translations = translation_el.decode()
 
+        ipa = [el.get_text() for el in turkish_details.select(".IPA")]
+
         return DictEntry(
             query,
             definitions,
@@ -66,4 +68,5 @@ class TurkishParser(Parser):
             "<br>".join(inflection_tables),
             translations,
             "".join(images),
+            " ".join(ipa),
         )

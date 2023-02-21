@@ -42,6 +42,8 @@ class SpanishParser(Parser):
         inflections = ""
         translations = ""
         images: list[str] = []
+        ipa = []
+
         spanish_el = soup.select_one("#Español")
         if spanish_el:
             parent_details = spanish_el.find_parents("details")[0]
@@ -51,6 +53,7 @@ class SpanishParser(Parser):
             imgs = save_images(dictionary, parent_details)
             images.extend(img.decode() for img in imgs)
             strip_images(parent_details)
+            ipa = [f"/{el.get_text()}/" for el in parent_details.select(".ipa")]
             for entry in parent_details.select("details"):
                 summary_el = entry.find("summary")
                 translation_h = entry.select_one("#Traducciones")
@@ -84,4 +87,5 @@ class SpanishParser(Parser):
             inflections,
             translations,
             "".join(images),
+            " ".join(ipa),
         )

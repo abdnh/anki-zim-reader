@@ -29,6 +29,7 @@ class DictEntry:
     inflections: str
     translations: str
     images: str
+    ipa: str
 
 
 class ZIMDict:

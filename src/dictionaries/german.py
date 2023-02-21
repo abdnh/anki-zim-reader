@@ -37,6 +37,7 @@ class GermanParser(Parser):
         inflections_list = []
         translations_list = []
         images: list[str] = []
+        ipa = ""
 
         entries = german_details.select('details[data-level="3"]')
         for entry in entries:
@@ -70,6 +71,10 @@ class GermanParser(Parser):
         if translations_table:
             translations_list.append(translations_table.decode())
 
+        ipa_el = german_details.select_one(".ipa")
+        if ipa_el:
+            ipa = f"/{ipa_el.get_text()}/"
+
         return DictEntry(
             query,
             definitions,
@@ -79,4 +84,5 @@ class GermanParser(Parser):
             "<br>".join(inflections_list),
             "<br>".join(translations_list),
             "".join(images),
+            ipa,
         )

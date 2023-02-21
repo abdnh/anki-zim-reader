@@ -96,6 +96,7 @@ class GreekParser(Parser):
         inflections = ""
         translations = ""
         images: list[str] = []
+        ipa = ""
 
         greek_el = None
         for lang_id in self.LANG_IDS:
@@ -114,6 +115,11 @@ class GreekParser(Parser):
             imgs = save_images(dictionary, parent_details)
             images.extend(img.decode() for img in imgs)
             strip_images(parent_details)
+
+            ipa_el = parent_details.select_one('[title="ΔΦΑ"]')
+            if ipa_el:
+                ipa = ipa_el.next_sibling.next_sibling.get_text().strip(":").strip()
+
             for entry in parent_details.select("details"):
                 summary_el = entry.find("summary")
                 translation_h = entry.select_one("#Μεταφράσεις")
@@ -164,4 +170,5 @@ class GreekParser(Parser):
             inflections,
             translations,
             "".join(images),
+            ipa,
         )

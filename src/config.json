@@ -16,5 +16,6 @@
     "inflection_field": "",
     "translation_field": "",
     "image_field": "",
+    "ipa_field": "",
     "skip_non_empty": false
 }

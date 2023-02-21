@@ -51,6 +51,7 @@ class ZIMFetcherDialog(QDialog):
             self.form.inflectionFieldComboBox,
             self.form.translationFieldComboBox,
             self.form.imageFieldComboBox,
+            self.form.ipaFieldComboBox,
         ]
         self.setWindowTitle(consts.ADDON_NAME)
         icon = QIcon(os.path.join(consts.ICONS_DIR, "logo.svg"))
@@ -101,6 +102,7 @@ class ZIMFetcherDialog(QDialog):
         "inflection_field",
         "translation_field",
         "image_field",
+        "ipa_field",
     )
 
     def set_last_used_settings(self) -> None:
@@ -167,6 +169,7 @@ class ZIMFetcherDialog(QDialog):
         inflection_field_i = self.form.inflectionFieldComboBox.currentIndex()
         translation_field_i = self.form.translationFieldComboBox.currentIndex()
         image_field_i = self.form.imageFieldComboBox.currentIndex()
+        ipa_field_i = self.form.ipaFieldComboBox.currentIndex()
 
         field_tuples = (
             (definition_field_i, self._get_definitions),
@@ -176,6 +179,7 @@ class ZIMFetcherDialog(QDialog):
             (inflection_field_i, self._get_inflections),
             (translation_field_i, self._get_translations),
             (image_field_i, self._get_images),
+            (ipa_field_i, self._get_ipa),
         )
 
         def on_success(ret: Any) -> None:
@@ -295,3 +299,6 @@ class ZIMFetcherDialog(QDialog):
 
     def _get_images(self, entry: DictEntry) -> str:
         return entry.images
+
+    def _get_ipa(self, entry: DictEntry) -> str:
+        return entry.ipa
