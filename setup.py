@@ -16,6 +16,7 @@ setup(
     author_email="abd.nh25@gmail.com",
     url="https://github.com/abdnh/anki-zim-reader",
     package_dir={"zim_reader": "src"},
+    package_data={"zim_reader": ["py.typed"]},
     packages=["zim_reader", "zim_reader.dictionaries"],
     keywords="anki addon zim dictionary",
     install_requires=[
